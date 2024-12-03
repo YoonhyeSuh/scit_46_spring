@@ -41,4 +41,10 @@ public class PhoneService {
 		}
 		return null;
 	}
+
+	//전달받은 id를 DB에서 삭제하는 repository에 요청
+	//@param id
+	public void delete(Integer id) {
+		phoneRepository.deleteById(id);
+	}
 }
