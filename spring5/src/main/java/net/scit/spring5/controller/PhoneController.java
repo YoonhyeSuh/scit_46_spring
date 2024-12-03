@@ -1,10 +1,12 @@
 package net.scit.spring5.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +33,16 @@ public class PhoneController {
 		
 		phoneService.insert(phoneDTO);	//controller에서 service 도착
 		
-		return "phone/registView";	//나중에 수정
+		return "redirect:/";	//나중에 수정
+	}
+	
+	@GetMapping("/selectOne")
+	public String selectOne(@RequestParam(name="id")Integer id, Model model) {
+		
+		PhoneDTO phoneDTO = phoneService.selectOne(id);
+		
+		model.addAttribute("phone", phoneDTO);
+		
+		return "phone/read";
 	}
 }
