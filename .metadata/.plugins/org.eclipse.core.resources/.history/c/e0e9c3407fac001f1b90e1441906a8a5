@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>[ 재고 관리 ]</h2>
+	<label for="creationDate">
+		날짜 : <input type="date" name="creationDate" id="creationDate">
+	</label><br>
+	<label for="productName">
+		물품명 : <input type="text" name="productName" id="productName">
+	</label><br>
+	<label>
+		항목 : <input type="radio" name="itemType" value="1">입고
+			  <input type="radio" name="itemType" value="0">출고
+	</label>
+</body>
+</html>

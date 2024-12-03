@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>재고 관리 프로그램</title>
+</head>
+<body>
+	<h2>[ 재고 관리 프로그램 ]</h2>
+	
+	<div>
+		<li><a href="/stock/stockInsert">재고 관리</a></li>
+	</div>
+</body>
+</html>

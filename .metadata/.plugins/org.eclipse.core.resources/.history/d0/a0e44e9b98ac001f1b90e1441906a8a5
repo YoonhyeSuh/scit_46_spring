@@ -1,0 +1,12 @@
+package net.scit.spring4.controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+@RequestMapping("/display")
+public class ThymeleafController {
+	@GetMapping("/text")
+	public String text() {
+		
+	}
+}

@@ -1,0 +1,13 @@
+package net.scit.spring3.dto;
+
+public class PhoneDTO {
+	private String name;
+	private String phone;
+	private String addr;
+	private Boolean type;	//Boolean 객체타입 boolean 원시타입
+	
+	//생성자
+	public PhoneDTO() {
+		System.out.println("기본생성자");
+	}
+}

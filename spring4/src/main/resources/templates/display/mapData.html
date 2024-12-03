@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map 데이터 다루기</title>
+</head>
+<body>
+    <h2>[ Map 데이터 다루기 ]</h2>
+    <div>
+        <a th:href="@{/}">
+            <img th:src="@{/images/home.png}" alt="">
+        </a>
+    </div>
+
+    <h3>1. Map 데이터 출력</h3>
+    <ul>
+        <li>Map ContainsKey : <span th:text = "${friend.containsKey('lee')}"></span></li>
+        <li>Map isEmpty : <span th:text = "${friend.isEmpty()}"></span></li>
+        <li>Map size : <span th:text = "${friend.size()}"></span></li>
+        <br>
+
+        <li>------------------------이순신 데이터 출력------------------------</li>
+        <li>
+            <span th:text="${friend.get('lee').name}"></span> / 
+            <span th:text="${friend.get('lee').age}"></span>세
+        </li>
+        <li>
+            <span th:text="${friend['lee'].name}"></span> / 
+            <span th:text="${friend['lee'].age}"></span>세
+        </li>
+        <li>
+            <span th:text="|${friend['lee'].name} / ${friend['lee'].age}세|"></span>
+        </li>
+    </ul>
+
+    <span th:if = "${age} >= 20" th:text="|${age}세는 성인입니다|"></span>
+    <span th:unless = "${age} >= 20" th:text="|${age}세는 미성년입니다|"></span><br>
+    <span th:text="${age} + '세는'"></span>
+    <span th:text="${age > 19} ? 성년입니다. : 미성년입니다."></span>
+
+    <h3>2. 쿼리스트림(쿼리파라미터) 전송</h3>
+    <ul>
+        <li><a href="/display/sendData?name=홍길동&age=31">데이터 전송</a></li>
+        <li><a th:href="@{/display/sendData(name=이몽룡, age=19)}">데이터 전송</a></li>
+        
+    </ul>
+</body>
+</html>
+
+<!-- 
+    list와 map의 차이?
+
+    Collection : Create, Update, Read(Retrieve), Delete
+    -> 데이터를 쌓는거 외에는 나머지 기능은 별로 좋지 않음
+
+    1) 선형(Linear)
+     - 순서가 있음
+     - 배열 : 크기를 수정할 수 없음 다루기는 쉬움
+                int[] ary = new int[10];
+     - ArrayList : 크기를 수정할 수 있음 다루기 쉬움
+     - Stack : FILO 먼저 들어가고 마지막에 나옴
+     - Queue : FIFO 먼저 들어가고 먼저 나옴(인쇄 대기열) 
+
+    2) 비선형 (Non Linear)
+     - Map(interface로 객체 생성 불가) <---- HashMap(순서x, 키-값 쌍으로 데이터 넣음)(JSON, Dictionary)
+        new HashMap<>();(객체 생성)
+        map.put("son", new FriendDTO());
+    - Tree
+    - Hierachy (계층)
+
+        son이라는 키를 어떤 특정한 알고리즘에 집어 넣음
+        알고리즘은 hash 알고리즘(hash method)
+        son 값으로 주소를 만들어냄
+        키 자체가 주소다
+-->

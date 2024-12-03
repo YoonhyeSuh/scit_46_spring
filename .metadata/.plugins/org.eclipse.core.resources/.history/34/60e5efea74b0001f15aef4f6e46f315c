@@ -1,0 +1,7 @@
+package net.scit.spring5.controller;
+
+@Controller
+@RequestMapping("/phone")
+public class PhoneController {
+	
+}

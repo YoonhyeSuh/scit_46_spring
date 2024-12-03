@@ -1,0 +1,9 @@
+package net.scit.test1.controller;
+
+@Controller
+public class MainController {
+	@GetMapping("/")
+	public String index() {
+		return "index";
+	}
+}

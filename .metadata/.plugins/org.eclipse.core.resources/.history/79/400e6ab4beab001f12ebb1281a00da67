@@ -1,0 +1,9 @@
+package net.scit.sprint3.controller;
+
+@Controller
+public class JoinController {
+	@GetMapping("/user")
+	public String join() {
+		
+	}
+}

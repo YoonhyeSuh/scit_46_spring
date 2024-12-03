@@ -1,0 +1,11 @@
+package net.scit.spring5.entity;
+
+import java.time.LocalDate;
+
+public class PhoneEntity {
+	private Integer id;
+	private String fname;
+	private String phone;
+	private LocalDate birthday;
+	private Boolean ftype;
+}

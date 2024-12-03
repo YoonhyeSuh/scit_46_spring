@@ -1,0 +1,8 @@
+package net.scit.spring3.dto;
+
+public class PhoneDTO {
+	private String name;
+	private String phone;
+	private String addr;
+	private boolean type;
+}

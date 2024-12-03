@@ -1,0 +1,13 @@
+package net.scit.spring5.service;
+
+import org.springframework.stereotype.Service;
+
+import net.scit.spring5.dto.PhoneDTO;
+
+@Service
+public class PhoneService {
+	
+	public void insert(PhoneDTO phoneDTO) {
+		
+	}
+}

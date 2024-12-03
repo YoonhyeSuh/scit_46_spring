@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>전화번호부 등록</title>
+</head>
+<body>
+	<h2>[ 전화번호부 등록 ]</h2>
+	<form action="/friend/phoneProc" method="POST">
+		<label for="">
+			이름: <input type="text" name="name" id="name" placeholder="이름 입력"><br>
+			
+		</label>
+	</form>
+</body>
+</html>

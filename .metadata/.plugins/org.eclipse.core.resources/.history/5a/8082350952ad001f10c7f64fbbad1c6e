@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <h2>[ Thymeleaf 조건문과 반복문 ]</h2>
+    <div>
+        <a th:href="@{/}">
+            <img th:src="@{/images/home.png}" alt="">
+        </a>
+    </div>
+
+    <h3>1. 반복문(List에 들어 있는 데이터를 반복 출력)</h3>
+    <p>개수: [[${fruit.size()}]]</p>
+    <ul>
+        <li th:each="item : ${fruit}">
+            <span th:text="${item}">과일</span>
+        </li>
+    </ul>
+    
+    <h3>2. 반복문(List에 들어 있는 숫자 데이터를 반복 출력)</h3>
+    <ul>
+        <li th:each="num: ${number}">
+            <span th:text="${status}""></span>
+            <span th:text="${num}"></span>
+            
+            <span></span>
+        </li>
+    </ul>
+</body>
+</html>
