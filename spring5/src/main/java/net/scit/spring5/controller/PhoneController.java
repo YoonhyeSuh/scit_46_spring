@@ -45,4 +45,17 @@ public class PhoneController {
 		
 		return "phone/read";
 	}
+	
+	@GetMapping("/delete")
+	public String delete(@RequestParam(name="id")Integer id) {
+		phoneService.delete(id);
+		return "redirect:/";
+	}
+	
+	@GetMapping("/update")
+	public String update(@RequestParam(name="id")Integer id, Model model) {
+		PhoneDTO phoneDTO = phoneService.selectOne(id);
+		model.addAttribute("phone", phoneDTO);
+		return "phone/update";
+	}
 }
