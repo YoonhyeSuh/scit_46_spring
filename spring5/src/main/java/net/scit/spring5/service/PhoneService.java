@@ -1,5 +1,8 @@
 package net.scit.spring5.service;
 
+import java.util.Optional;
+
+import org.apache.catalina.startup.ClassLoaderFactory.Repository;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -21,5 +24,19 @@ public class PhoneService {
 		PhoneEntity phoneEntity = PhoneEntity.toEntity(phoneDTO);
 		
 		phoneRepository.save(phoneEntity);	//전달인자로 반드시 entity 타입이 와야 함
+	}
+
+	//전달받은 아이디의 정보를 DB에서 조회한다.
+	//@param id (PK)
+	//@return 조회된 entity를 dto로 변환해서 반환
+	public PhoneDTO selectOne(Integer id) {
+		Optional<PhoneEntity> temp = phoneRepository.findById(id);
+		
+		if(temp.isPresent()) {
+			PhoneEntity entity = temp.get();
+			
+			//entity를 dto로 변경
+		}
+		return null;
 	}
 }
