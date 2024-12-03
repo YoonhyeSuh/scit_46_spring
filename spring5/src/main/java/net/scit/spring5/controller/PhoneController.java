@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -57,5 +58,13 @@ public class PhoneController {
 		PhoneDTO phoneDTO = phoneService.selectOne(id);
 		model.addAttribute("phone", phoneDTO);
 		return "phone/update";
+	}
+	
+	@PostMapping("/update")
+	public String update(@ModelAttribute PhoneDTO phoneDTO, RedirectAttributes rttr) {
+		phoneService.update(phoneDTO);
+		
+		rttr.addAttribute("id", phoneDTO.getId());
+		return "redirect:/phone/selectOne";
 	}
 }

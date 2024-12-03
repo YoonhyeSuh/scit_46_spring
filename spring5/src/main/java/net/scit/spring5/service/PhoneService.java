@@ -2,9 +2,9 @@ package net.scit.spring5.service;
 
 import java.util.Optional;
 
-import org.apache.catalina.startup.ClassLoaderFactory.Repository;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.scit.spring5.dto.PhoneDTO;
@@ -46,5 +46,18 @@ public class PhoneService {
 	//@param id
 	public void delete(Integer id) {
 		phoneRepository.deleteById(id);
+	}
+
+	@Transactional
+	public void update(PhoneDTO phoneDTO) {
+		
+		//jpa에서 데이터 수정하려면 select 먼저 하라고 함
+		//수정을 할 때는 그냥 save() 하지 말고, findById로 데이터가 있는지 확인부터 해라
+		Optional<PhoneEntity> temp = phoneRepository.findById(phoneDTO.getId());
+		
+		if(temp.isPresent()) {
+			PhoneEntity entity = PhoneEntity.toEntity(phoneDTO);
+			phoneRepository.save(entity);
+		}
 	}
 }
