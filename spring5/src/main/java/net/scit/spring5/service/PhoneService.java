@@ -36,6 +36,8 @@ public class PhoneService {
 			PhoneEntity entity = temp.get();
 			
 			//entity를 dto로 변경
+			PhoneDTO phoneDTO = PhoneDTO.toDTO(entity);
+			return phoneDTO;
 		}
 		return null;
 	}
