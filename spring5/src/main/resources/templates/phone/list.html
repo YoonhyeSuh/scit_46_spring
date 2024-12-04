@@ -29,7 +29,10 @@
                 <td th:text = "${phone.phone}"></td>
                 <td th:text = "${phone.birthday}"></td>
                 <td th:text = "${phone.ftype} ? '외향적' : '내향적' "></td>
-                <td></td>
+                <td>
+                	<a th:href="@{/phone/delete(id=${phone.id})}">삭제</a>
+        			<a th:href="@{/phone/update(id=${phone.id})}">수정</a>
+                </td>
             </tr>
         </table>
     </div>
