@@ -1,5 +1,7 @@
 package net.scit.spring5.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -60,4 +62,22 @@ public class PhoneService {
 			phoneRepository.save(entity);
 		}
 	}
+
+	//전화번호부의 모든 데이터를 DB에서 조회
+	//@return List<PhoneDTO>
+	public List<PhoneDTO> selectAll() {
+		List<PhoneEntity> entityList = phoneRepository.findAll();
+		List<PhoneDTO> dtoList = new ArrayList();	//객체 생성
+		
+		//1) for문 (advanced for)
+		for(PhoneEntity entity : entityList) {
+			dtoList.add(PhoneDTO.toDTO(entity));
+		}
+		
+		//2) lambda 식 : 전달인자 -> 반환 , 타입 추론
+		//entityList.forEach((entity) -> dtoList.add(PhoneDTO.toDTO(entity)));
+		return dtoList;
+	}
+
+	
 }
