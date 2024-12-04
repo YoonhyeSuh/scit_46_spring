@@ -4,6 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>전화번호 등록</title>
+    <script>
+        window.onload = function(){
+            let sendData = document.getElementById("sendData");
+            sendData.addEventListener('click', validate);
+        }
+
+        //이벤트 헨들러
+        function validate(){
+            let fname = document.getElementById("fname").value;    //값(String)
+            //let fname = document.getElementById("fname")    //태그 객체
+            let phone = document.getElementById("phone").value;    //값(String)
+
+            if(fname.length == 0){
+                alert("이름을 입력하세요.");
+                document.getElementById("fname").focus();   //포커스를
+                return;
+            }
+
+            if(isNaN(phone) || phone.length != 11){
+                alert("전화번호를 잘 입력하세요.");
+                document.getElementById("phone").select();
+                return;
+            }
+
+            let sendForm = document.getElementById("sendForm");
+            sendForm.submit();
+        }
+    </script>
 </head>
 <body>
     <div>
@@ -13,13 +41,13 @@
     </div>
 
     <div>
-        <form th:action="@{/phone/regist}" method="POST">
+        <form th:action="@{/phone/regist}" id="sendForm" method="POST">
             <label> 이름 : 
-                <input type="text" name="fname" placeholder="이름 입력">
+                <input type="text" name="fname" id="fname" placeholder="이름 입력">
             </label><br>
 
             <label> 전화번호 : 
-                <input type="text" name="phone" placeholder="전화번호 숫자 11자리 입력">
+                <input type="text" name="phone" id="phone" placeholder="전화번호 숫자 11자리 입력">
             </label><br>
 
             <label> 생년월일 : 
@@ -31,7 +59,7 @@
                 <input type="radio" name="ftype" value="0"> 내성적
             </label><br><br>
 
-            <input type="submit" value="등록">
+            <input type="button" id="sendData" value="등록">
         </form>
     </div>
 </body>
