@@ -10,4 +10,8 @@
     <fullyQualifiedTypeName name="org.springframework.web.servlet.mvc.support.RedirectAttributes"/>
     <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
     <fullyQualifiedTypeName name="jakarta.transaction.Transactional"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="net.scit.spring5.dto.PhoneDTO"/>
+    <fullyQualifiedTypeName name="org.springframework.data.domain.Sort"/>
+    <fullyQualifiedTypeName name="org.springframework.data.domain.Sort.Direction"/>
 </qualifiedTypeNameHistroy>
