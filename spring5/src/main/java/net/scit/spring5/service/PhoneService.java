@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
@@ -66,7 +67,7 @@ public class PhoneService {
 	//전화번호부의 모든 데이터를 DB에서 조회
 	//@return List<PhoneDTO>
 	public List<PhoneDTO> selectAll() {
-		List<PhoneEntity> entityList = phoneRepository.findAll();
+		List<PhoneEntity> entityList = phoneRepository.findAll(Sort.by(Sort.Direction.ASC, "fname"));
 		List<PhoneDTO> dtoList = new ArrayList();	//객체 생성
 		
 		//1) for문 (advanced for)
