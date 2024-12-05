@@ -3,16 +3,19 @@ package net.scit.test3.dto;
 import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import net.scit.test3.entity.FitnessEntity;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
+@Builder
 public class FitnessDTO {
 	private Long id;
 	private String name;
@@ -61,5 +64,15 @@ public class FitnessDTO {
 		else if(this.bmi >= 23) this.bmiResult = "과체중";
 		else if(this.bmi >= 18.5) this.bmiResult = "정상";
 		else this.bmiResult = "저체중";
+	}
+	
+	public static FitnessDTO toDTO(FitnessEntity fitnessEntity) {
+		return FitnessDTO.builder()
+				.id(fitnessEntity.getId())
+				.name(fitnessEntity.getName())
+				.gender(fitnessEntity.getGender())
+				.height(fitnessEntity.getHeight())
+				.weight(fitnessEntity.getWeight())
+				.build();
 	}
 }
