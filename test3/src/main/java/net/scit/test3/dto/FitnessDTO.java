@@ -67,12 +67,18 @@ public class FitnessDTO {
 	}
 	
 	public static FitnessDTO toDTO(FitnessEntity fitnessEntity) {
-		return FitnessDTO.builder()
+		FitnessDTO dto =  FitnessDTO.builder()
 				.id(fitnessEntity.getId())
 				.name(fitnessEntity.getName())
 				.gender(fitnessEntity.getGender())
 				.height(fitnessEntity.getHeight())
 				.weight(fitnessEntity.getWeight())
+				.joinDate(fitnessEntity.getJoinDate())
 				.build();
+		dto.calcStdWeight();
+		dto.calcBmi();
+		dto.calcBmiResult();
+		
+		return dto;
 	}
 }
