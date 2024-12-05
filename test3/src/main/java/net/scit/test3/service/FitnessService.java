@@ -1,5 +1,9 @@
 package net.scit.test3.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +24,16 @@ public class FitnessService {
 		//repository.save(entity)를 하여 DB에 저장
 		FitnessEntity fitnessEntity = FitnessEntity.toEntity(fitnessDTO);
 		fitnessRepository.save(fitnessEntity);
+	}
+	
+	public List<FitnessDTO> selectAll(){
+		List<FitnessEntity> entityList = fitnessRepository.findAll(Sort.by(Sort.Direction.ASC,"name"));
+		List<FitnessDTO> dtoList = new ArrayList();
+		
+		for(FitnessEntity entity : entityList) {
+			dtoList.add(FitnessDTO.toDTO(entity));
+		}
+		return dtoList;
 	}
 	
 }
