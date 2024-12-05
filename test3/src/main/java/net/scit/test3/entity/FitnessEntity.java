@@ -2,6 +2,8 @@ package net.scit.test3.entity;
 
 import java.time.LocalDate;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,6 +46,7 @@ public class FitnessEntity {
 	private double weight;
 
 	@Column(name="join_date")
+	@CreationTimestamp
 	private LocalDate joinDate;
 	
 	public static FitnessEntity toEntity(FitnessDTO fitnessDTO) {
@@ -53,6 +56,7 @@ public class FitnessEntity {
 				.gender(fitnessDTO.getGender())
 				.height(fitnessDTO.getHeight())
 				.weight(fitnessDTO.getWeight())
+				.joinDate(fitnessDTO.getJoinDate())
 				.build();
 	}
 }
