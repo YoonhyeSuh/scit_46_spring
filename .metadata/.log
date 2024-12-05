@@ -1743,3 +1743,42 @@ java.util.concurrent.TimeoutException
 	at org.springframework.tooling.jdt.ls.commons.classpath.SendClasspathNotificationsJob.flush(SendClasspathNotificationsJob.java:178)
 	at org.springframework.tooling.jdt.ls.commons.classpath.SendClasspathNotificationsJob.run(SendClasspathNotificationsJob.java:149)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-12-05 14:07:53.201
+!MESSAGE [Info]	Using Typescript version (user-setting) 5.5.4 from path "C:\DownloadFiles\sts-4.26.0.RELEASE\plugins\org.eclipse.wildwebdeveloper_1.2.3.202408270415\node_modules\typescript\lib\tsserver.js"
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-12-05 14:07:53.208
+!MESSAGE [Info]	Typescript Server version info: {version=5.5.4, source=user-setting}
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-12-05 14:07:53.256
+!MESSAGE [Info]	ESLint server running in node v20.16.0
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-12-05 14:07:59.451
+!MESSAGE [Info]	ESLint server running in node v20.16.0
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-12-05 14:12:01.861
+!MESSAGE [Info]	ESLint server running in node v20.16.0
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-12-05 14:12:01.964
+!MESSAGE [Info]	Using Typescript version (user-setting) 5.5.4 from path "C:\DownloadFiles\sts-4.26.0.RELEASE\plugins\org.eclipse.wildwebdeveloper_1.2.3.202408270415\node_modules\typescript\lib\tsserver.js"
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-12-05 14:12:01.968
+!MESSAGE [Info]	Typescript Server version info: {version=5.5.4, source=user-setting}
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-05 14:12:01.975
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/spring5/src/main/java/net/scit/spring5/controller/PhoneController.java
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-12-05 14:17:25.947
+!MESSAGE [Info]	ESLint server running in node v20.16.0
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-12-05 14:30:23.690
+!MESSAGE [Info]	ESLint server running in node v20.16.0
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-12-05 14:30:23.834
+!MESSAGE [Info]	Using Typescript version (user-setting) 5.5.4 from path "C:\DownloadFiles\sts-4.26.0.RELEASE\plugins\org.eclipse.wildwebdeveloper_1.2.3.202408270415\node_modules\typescript\lib\tsserver.js"
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-12-05 14:30:23.836
+!MESSAGE [Info]	Typescript Server version info: {version=5.5.4, source=user-setting}
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-05 14:30:23.839
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/spring5/src/main/java/net/scit/spring5/controller/PhoneController.java
