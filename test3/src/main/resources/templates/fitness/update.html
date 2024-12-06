@@ -27,18 +27,19 @@
     <div>
         <form th:action="@{/fitness/update}" method="POST">
         <input type="hidden" name="id" th:value="${fitness.id}">
+        <input type="hidden" name="joinDate" th:value="${fitness.joinDate}">
             <label> 이름 : 
-                <input type="text" name="name" id="name" th:value="${fitness.name}">
+                <input type="text" name="name" th:value="${fitness.name}">
             </label><br>
             <label> 성별 : 
-                <input type="radio" name="gender" id="gender" value="1" th:checked = "${fitness.gender} ? 'checked' : ' ' ">남
-                <input type="radio" name="gender" id="gender" value="0" th:checked = "${fitness.gender} ? ' ' : 'checked' ">여
+                <input type="radio" name="gender" value="1" th:checked = "${fitness.gender} == true ">남
+                <input type="radio" name="gender" value="0" th:checked = "${fitness.gender} != true ">여
             </label><br>
             <label> 키(cm) : 
-                <input type="text" name="height" id="height" th:value="${fitness.height}">
+                <input type="text" name="height" th:value="${fitness.height}">
             </label><br>
             <label> 몸무게(kg) : 
-                <input type="text" name="weight" id="weight" th:value="${fitness.weight}">
+                <input type="text" name="weight" th:value="${fitness.weight}">
             </label><br>
             <input type="submit" value="수정">
         </form>
