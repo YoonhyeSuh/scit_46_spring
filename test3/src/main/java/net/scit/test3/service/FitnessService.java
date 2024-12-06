@@ -2,6 +2,7 @@ package net.scit.test3.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -28,12 +29,44 @@ public class FitnessService {
 	
 	public List<FitnessDTO> selectAll(){
 		List<FitnessEntity> entityList = fitnessRepository.findAll(Sort.by(Sort.Direction.ASC,"name"));
-		List<FitnessDTO> dtoList = new ArrayList();
+		List<FitnessDTO> dtoList = new ArrayList<>();
+		
+//		for(FitnessEntity entity : entityList) {
+//			dtoList.add(FitnessDTO.toDTO(entity));
+//		}
 		
 		for(FitnessEntity entity : entityList) {
-			dtoList.add(FitnessDTO.toDTO(entity));
+			FitnessDTO dto = FitnessDTO.toDTO(entity);
+			dto.setWeight(entity.getWeight());
+			dto.setHeight(entity.getHeight());
+			
+			dtoList.add(dto);
 		}
 		return dtoList;
+	}
+
+	public void delete(Long id) {
+		fitnessRepository.deleteById(id);
+	}
+
+	public void update(FitnessDTO fitnessDTO) {
+		Optional<FitnessEntity> temp = fitnessRepository.findById(fitnessDTO.getId());
+		if(temp.isPresent()) {
+			FitnessEntity entity = FitnessEntity.toEntity(fitnessDTO);
+			fitnessRepository.save(entity);
+		}
+	}
+
+	public FitnessDTO selectOne(Long id) {
+		Optional<FitnessEntity> temp = fitnessRepository.findById(id);
+		
+		if(temp.isPresent()) {
+			FitnessEntity entity = temp.get();
+			
+			FitnessDTO fitnessDTO = FitnessDTO.toDTO(entity);
+			return fitnessDTO;
+		}
+		return null;
 	}
 	
 }

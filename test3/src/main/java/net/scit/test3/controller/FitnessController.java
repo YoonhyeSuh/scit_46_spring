@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,4 +44,25 @@ public class FitnessController {
 		model.addAttribute("list", list);
 		return "fitness/selectAll";
 	}
+	
+	@GetMapping("delete")
+	public String delete(@RequestParam(name="id")Long id, Model model) {
+		fitnessService.delete(id);
+		return "redirect:/";
+	}
+	
+	@GetMapping("/update")
+	public String update(@RequestParam(name="id")Long id, Model model) {
+		FitnessDTO fitnessDTO = fitnessService.selectOne(id);
+		model.addAttribute("fitness", fitnessDTO);
+		return "fitness/update";
+	}
+	
+	@PostMapping("/update")
+	public String update(@ModelAttribute FitnessDTO fitnessDTO, RedirectAttributes rttr) {
+		fitnessService.update(fitnessDTO);
+		rttr.addAttribute("id", fitnessDTO.getId());
+		return "redirect:/fitness/selectAll";
+	}
+	
 }
