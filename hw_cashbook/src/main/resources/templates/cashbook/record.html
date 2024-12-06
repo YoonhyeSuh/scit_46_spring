@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가계부</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+    <div class="top">
+        <a th:href="@{/}">
+            <img th:src="@{/images/logo.png}" alt="Home">
+        </a>
+        <h2>[ 내 가계부 ]</h2>
+    </div>
+    
+    <div>
+    	<form th:action="@{/cashbook/record}" method="POST">
+    		<label> 구분
+    			<input type = "radio" name = "ioType" id="ioType" value = "1">수입
+    			<input type = "radio" name = "ioType" id="ioType" value = "0">지출
+    		</label><br>
+    		<label> 메모
+    			<input type = "text" name = "memo" id = "memo" placeholder = "내용 입력">  		
+    		</label><br>
+    		<label> 금액
+    			<input type = "text" name = "amount" id = "amount" placeholder = "금액 입력">
+    		</label><br>
+    		<input type="submit" value="등록">
+    	</form>
+    </div>
+    
+    <div>
+    	<table border="1">
+    		<tr>
+    			<th>날짜</th>
+    			<th>구분</th>
+    			<th>메모</th>
+    			<th>금액</th>
+    		</tr>
+    		
+    		<tr th:each = "cashbook : ${list}">
+    			<td th:text = "${cashbook.regdate}"></td>
+    			<td th:text = "${cashbook.ioType}? '수입' : '지출' "></td>
+    			<td th:text = "${cashbook.memo}"></td>
+    			<td th:text = "${cashbook.amount}"></td>
+    			<td>
+    				<a th:href="@{/cashbook/delete(id=${cashbook.cashSeq})}">삭제</a>
+    			</td>
+    		</tr>
+    	</table>
+    </div>
+</body>
+</html>
