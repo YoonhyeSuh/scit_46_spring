@@ -30,7 +30,7 @@
             //$('div.item2').not(':nth-child(2n)').css({'background-color': 'cyan', 'border' : '2px dotted blue'});
             //each() : for문과 동일하여
             $('div.item3').each(function(index, item){
-                if($(this).is('.choice')) {//루프를 돌때 선택된 객체 this
+                if($(this).is('.choice')) {//루프를 돌때 선택된 객체 this / is는 반환타입이 true or false
                     $(this).css('background-color', 'pink');
                 }
             });  //배열로 6개 반환 / 전달인자로 function이 옴
