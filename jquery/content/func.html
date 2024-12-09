@@ -5,8 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>4. 함수형태의 선택자</title>
     <script src="../js/jquery-3.7.1.min.js"></script>
+    <style>
+        div.item1, div.item2, div.item3{
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+            margin: 5px;
+            float: left;
+        }
+
+        div.first, div.second, div.third{
+            clear:both;
+        }
+    </style>
     <script>
-        
+        //eq(n) - 검색 / n은 정수, nth-child(),  each(), is()
+        $(function(){
+            let mydiv = $('div').length;
+            //eq(n) : n은 index 값으로 0부터
+            $('div.item1').eq(2).css({'background-color': 'yellow', 'border' : '2px dotted red'});   //index
+            //nth-child(n) : n은 count이므로 1부터
+            //자식이 여러명일때 n을 붙임 ex) 2n : 2의 배수인 자식
+            $('div.item2:nth-child(2n+1)').css({'background-color': 'yellow', 'border' : '2px dotted red'});
+            //$('div.item2').not(':nth-child(2n)').css({'background-color': 'cyan', 'border' : '2px dotted blue'});
+            //each() : for문과 동일하여
+            $('div.item3').each(function(index, item){
+                if($(this).is('.choice')) {//루프를 돌때 선택된 객체 this
+                    $(this).css('background-color', 'pink');
+                }
+            });  //배열로 6개 반환 / 전달인자로 function이 옴
+        });
     </script>
 </head>
 <body>
@@ -31,11 +59,11 @@
 
     <div class="third">
         <div class="item3"></div>
+        <div class="item3 choice"></div>    <!-- 클래스 추가-->
         <div class="item3"></div>
         <div class="item3"></div>
-        <div class="item3"></div>
-        <div class="item3"></div>
-        <div class="item3"></div>
+        <div class="item3 choice"></div>
+        <div class="item3 choice"></div>
     </div>
 </body>
 </html>
