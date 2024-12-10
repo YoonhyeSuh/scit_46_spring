@@ -20,6 +20,14 @@
                 let mySrc = '../images/cry.png';
                 $('img').attr('src', mySrc);
             })
+
+            $('img').on('mouseenter', function(){
+                $(this).attr('src', '../images/cry.png');
+            })
+
+            $('img').on('mouseleave', function(){
+                $(this).attr('src', '../images/smile.png');
+            })
         });
 
        
