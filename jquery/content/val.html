@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7. val() - 폼태그용</title>
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(function(){
+            $('#readData').on('click', function(){
+                let username = $('#username').val();    //전달인자 x : R, 전달인자 o : W
+                let userpwd = $('#userpwd').val();
+                alert(username + ':' + userpwd);
+            });
+
+            $('#sendData').on('click', function(){
+                let username = $('#username').val();    //5~10
+                let userpwd = $('#userpwd').val();      //5~10
+
+                if(username.length < 5 || username.length > 10){
+                    alert('이름을 잘 입럭하세요');
+                    $('username').select();     //focus
+                    return; 
+                }
+
+                if(userpwd.length < 5 || userpwd.length > 10){
+                    alert('비밀번호를 잘 입럭하세요');
+                    $('userpwd').select();     //focus
+                    return; 
+                }
+                let data =`너의 이름은 ${username}<br>너의 비밀번호는 ${userpwd}`;
+                $('#target').html(data);
+            });
+
+            $('#clear').on('click', function(){
+                $('#username').val('');
+                $('#userpwd').val('');
+                $('#target').html('');
+
+                //reset으로 해도 됨
+            })
+        });
+    </script>
+</head>
+<body>
+    <h2>[ 7. val() - 폼태그용 ]</h2>
+    <div>
+        <form>
+            <input type="text" name="" id="username">
+            <input type="text" name="" id="userpwd">
+            <input type="button" value="서버로 전송" id="sendData">
+            <input type="button" value="지우기" id="clear">
+            <input type="button" value="데이터 확인" id="readData">
+        </form>
+    </div>
+    <p id="target"></p>
+</body>
+</html>
