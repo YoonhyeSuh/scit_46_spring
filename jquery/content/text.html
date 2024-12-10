@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6. html(), text(), attr()</title>
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(function(){
+            $('#btnText').on('click', function(){
+                let myText = $('#myText').text();   //전달 인자가 없음 읽어오기
+                $('#target').text(myText);  //전달인자 있음 쓰기
+
+                let data = '나리나리 <b style = "color:red;">개나리</b> 입에 따다 물고요';
+                $('#myText').html(data);
+            })
+
+            $('#btnImg').on('click', function(){
+                let myImg = $('img').attr('src');
+                let mySrc = '../images/cry.png';
+                $('img').attr('src', mySrc);
+            })
+        });
+
+       
+    </script>
+</head>
+<body>
+    <h2>[ 6. html(), text(), attr() ]</h2>
+    <p id="myText">무궁화 꽃이 피었습니다.</p>
+    <p id="target"></p>
+    <p>
+        <img src="../images/smile.png" alt="얼굴1">
+    </p>
+    <p>
+        <input type="button" value="글씨를 바꿔요" id="btnText">
+        <input type="button" value="그림을 바꿔요" id="btnImg">
+    </p>
+</body>
+</html>
