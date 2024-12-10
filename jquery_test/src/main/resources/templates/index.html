@@ -4,31 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
+    <style>
+    	label {
+    		display : block;
+    	}
+    	label span.title{
+    		display : inline-block;
+    		width: 80px;
+    		height: 30px;
+    	}
+    </style>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
-    <script>
-    	$(function(){
- 
-    	})
-    </script>
+    <script defer th:src="@{/js/join.js}"></script>
 </head>
 <body>
    <h2>[ 회원 가입 ]</h2>
+   <!-- 아이디(String), 이메일(String), 사는동네(String), 나이(int): 20~50 -->
    <div>
-        <form>
+        <form th:action="@{/join}" method="POST" id="joinForm">
         	<label>
         		<span class="title">아이디: </span>
         		<input type="text" name="userid" id="userid">
-        	</label><br>
+        	</label>
             
             <label>
         		<span class="title">이메일: </span>
         		<input type="email" name="email" id="email">
-        	</label><br>
+        	</label>
         	
         	<label>
         		<span class="title">나이: </span>
         		<input type="number" name="age" id="age">
-        	</label><br>
+        	</label>
         	
         	<label>
         		<span class="title">지역: </span>
@@ -39,10 +46,20 @@
         			<option value="제주시">제주
         			<option value="인천시">인천
         		</select>
-        	</label><br>
+        	</label>
         	<input type="button" id="join" value="가입신청">
         </form>
     </div>
-    <p id="target"></p>
+    <th:block th:unless="${member != null}">
+    	<p>입력된 정보가 없습니다.</p>
+    </th:block>
+    <th:block th:if="${member != null}">
+    <p id="target">
+    	아이디 : <span th:text="${member.userid}"></span><br> <!-- member는 서버를 갔다와야지 생김 -->
+    	이메일 : <span th:text="${member.email}"></span><br>
+    	나이 : <span th:text="${member.age}"></span><br>
+    	지역 : <span th:text="${member.location}"></span><br>
+    </p>
+    </th:block>
 </body>
 </html>
