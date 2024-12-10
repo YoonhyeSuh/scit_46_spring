@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script>
+    	$(function(){
+ 
+    	})
+    </script>
+</head>
+<body>
+   <h2>[ 회원 가입 ]</h2>
+   <div>
+        <form>
+        	<label>
+        		<span class="title">아이디: </span>
+        		<input type="text" name="userid" id="userid">
+        	</label><br>
+            
+            <label>
+        		<span class="title">이메일: </span>
+        		<input type="email" name="email" id="email">
+        	</label><br>
+        	
+        	<label>
+        		<span class="title">나이: </span>
+        		<input type="number" name="age" id="age">
+        	</label><br>
+        	
+        	<label>
+        		<span class="title">지역: </span>
+        		<select name="location">
+        			<option value="서울시">서울
+        			<option value="부산시">부산
+        			<option value="광주시">광주
+        			<option value="제주시">제주
+        			<option value="인천시">인천
+        		</select>
+        	</label><br>
+        	<input type="button" id="join" value="가입신청">
+        </form>
+    </div>
+    <p id="target"></p>
+</body>
+</html>
