@@ -16,6 +16,7 @@
             margin: 0 auto;
             text-align: center;
         }
+
         hr{
             width: 1000px;
             margin: 20px auto;
@@ -55,14 +56,27 @@
     <script>
         $(function(){
             $('#regist').on('click', appendCustomer);
-            
-            function appendCustomer() {
-                let name = $('#name').val();
-                let phone = $('#phone').val();
-                let gender = $('input[type=radio]:checked').val();    //selector
-                let addr = $('#addr').val();  
+            $('#checkAll').on('click', function(){
+                if($(this).is(':checked')){
+                    $('input[type=checkbox]').prop('checked', true);
+                } else {
+                    $('input[type=checkbox]').prop('checked', false);
+                }
+            });
+
+            //상단의 삭제버튼을 클릭하면 체크된 나머지 요소도 삭제
+            $('#deleteAllBtn').on('click', function(){
+                $('tbody input[type=checkbox]:checked').parent().parent().remove();
+            });
+        });
+
+        function appendCustomer() {
+            let name = $('#name').val();
+            let phone = $('#phone').val();
+            let gender = $('input[type=radio]:checked').val();    //selector
+            let addr = $('#addr').val();  
                 
-                let tag = `
+            let tag = `
                     <tr>
                         <td><input type="checkbox" id=""></td>
                         <td>${name}</td>
@@ -71,18 +85,17 @@
                         <td>${addr}</td>
                         <td>
                             <input type="button" class="deleteBtn" value="삭제">
-                            <td>
+                        <td>
                     <tr>
                 `
-                $('div#result table').append(tag);
-                $('.deleteBtn').on('click', deleteCustomer);    //append 후에 메모리에 데이터가 저장되기 때문에 그전에 삭제 function을 만드면 아무런 동작을 하지 않음
-            }
+            $('div#result table tbody').append(tag);
+            $('.deleteBtn').on('click', deleteCustomer);    //append 후에 메모리에 데이터가 저장되기 때문에 그전에 삭제 function을 만드면 아무런 동작을 하지 않음
+        }
 
-            function deleteCustomer(){
-                $(this).parent().parent().remove();
-                event.stopImmediatePropagation();
-            }
-        });
+        function deleteCustomer(){
+            $(this).parent().parent().remove();
+            event.stopImmediatePropagation();
+        }
     </script>
 </head>
 <body>
@@ -108,6 +121,9 @@
         <input type="button" id="regist" value="등록">
     </div>
 
+    <div id="btns">
+        <input type="button" id="deleteAllBtn" value="삭제">
+    </div>
     <hr>
 
     <div id="result">
@@ -124,6 +140,9 @@
                     <th class="w50 delBtns"></th>
                 </tr>
             </thead>
+            <tbody>
+
+            </tbody>
         </table>
     </div>
 </body>
