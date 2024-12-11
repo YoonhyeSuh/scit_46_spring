@@ -6,6 +6,9 @@
     <title>10. 요소 삭제(remove(), empty())</title>
     <script src="../js/jquery-3.7.1.min.js"></script>
     <style>
+        div#app, div#app2{
+            border : 1px solid blueviolet;
+        }
         hr{
             margin: 30px 0;
         }
@@ -13,8 +16,15 @@
     <script>
         $(function(){
             $('#remove').on('click', function(){
-                $('#app')
-            })
+                //$('div#app').remove();  //선택한 태그와 그 하위 태그들을 모두 삭제
+                $('div#app img:first').remove();    //target
+            });
+            $('#empty').on('click', function(){
+                //선택한 태그의 하위 태그들을 모두 삭제 본인은 남아 있음
+                //하위태그를 가질 수 없는 단일요소<img> <input>
+                //$('div#app2').empty();  
+                $('div#app2 img:first').empty();
+            });
         });
     </script>
 </head>
