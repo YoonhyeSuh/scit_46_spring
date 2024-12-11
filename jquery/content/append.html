@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9. 요소 추가(prepend(), append())</title>
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <style>
+        div#app, div#app2{
+            border : 1px solid blueviolet;
+        }
+        hr{
+            margin: 30px 0;
+        }
+    </style>
+    <script>
+        $(function(){
+            $('#append').on('click', function(){
+                let myimg = ['../images/avatarcry.png', '../images/care.png', '../images/cry.png', '../images/dislike.png', '../images/fun.png', '../images/smile.png', '../images/wow.png'];
+                //Math.random() 0 <= n < 1
+                //소수점 버리는 함수 Math.floor(진행방향에 따라 달라짐(음수 양수) ex) -1.4 -> -2 소수점 올림은 Math.ceil 소수점 반올림은 Math.round
+                let choice = Math.floor(Math.random() * myimg.length)    //7
+                let tag = `<img src="${myimg[choice]}" alt="얼굴">`;
+                $('#app').append(tag);  //자식으로 추가된다. 나온 값 뒤에 붙어서 나옴
+                //$('#app').prepend(tag); //자식으로 추가된다. 나온 값 앞에 붙어서 나옴
+            })
+
+            //prepend 동작
+            $('#prepend').on('click', function(){
+                //$('#app2').prepend($('#app2 img:last'));
+                $('#app2').append($('#app2 img:first'));
+            })
+        });
+    </script>
+</head>
+<body>
+    <h2>[ 9. 요소 추가(prepend(), append()) ]</h2>
+    <button id="append">Append를 이용한 추가</button>
+    <div id="app"></div>
+
+    <hr>
+    <button id="prepend">Prepend 이용한 추가</button>
+    <div id="app2">
+        <img src="../images/avatarcry.png" alt="얼굴">
+        <img src="../images/care.png" alt="얼굴">
+        <img src="../images/cry.png" alt="얼굴">
+        <img src="../images/dislike.png" alt="얼굴">
+        <img src="../images/fun.png" alt="얼굴">
+        <img src="../images/smile.png" alt="얼굴">
+        <img src="../images/wow.png" alt="얼굴">
+    </div>
+</body>
+</html>
