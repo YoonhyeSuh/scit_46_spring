@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import net.scit.todolist.entity.ListEntity;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,4 +23,15 @@ public class ListDTO {
 	private String importance;
 	private String categories;
 	private String todo;
+	
+	public static ListDTO toDTO(ListEntity listEntity) {
+		return ListDTO.builder()
+				.seqno(listEntity.getSeqno())
+				.regdate(listEntity.getRegdate())
+				.status(listEntity.getStatus())
+				.importance(listEntity.getImportance())
+				.categories(listEntity.getCategories())
+				.todo(listEntity.getTodo())
+				.build();
+	}
 }
