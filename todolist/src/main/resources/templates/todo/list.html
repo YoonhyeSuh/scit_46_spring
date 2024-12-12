@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(function(){
+            $('#regist').on('click', function(){
+                               
+            })
+        });
+    </script>
+</head>
+<body>
+    <div class="top">
+        <a th:href="@{/}">
+            <img th:src="@{/images/list.png}" alt="Home">
+        </a>
+        <h2>[ Todo List ]</h2>
+    </div>
+
+    <div>
+        <form th:action="@{/todo/list}" method="POST" id="joinForm">
+            <label>작성일: 
+                <input type="date" id="regdate">
+            </label><br>
+            <label>상태: 
+                <input type="radio" name="status" value="진행">진행
+                <input type="radio" name="status" value="지연">지연
+                <input type="radio" name="status" value="완료">완료
+            </label><br>
+            <label>중요도: 
+                <select name="importance" id="importance">
+                    <option value="높음">높음</option>
+                    <option value="보통">보통</option>
+                    <option value="낮음">낮음</option>
+                </select>
+            </label><br>
+            <label>분류: 
+                <input type="radio" name="categories" value="개인">개인
+                <input type="radio" name="categories" value="회사">회사
+            </label><br>
+            <label>To Do: 
+                <textarea id="todo"></textarea>
+            </label><br>
+            <label>
+                <input type="button" id="regist" value="할일 등록">
+                <input type="button" id="cancel" value="취소">
+            </label>
+        </form>
+    </div>
+        
+    <div id="result">
+        <p>(todo 보기)</p>
+        <table border=1>
+            <thead>
+                <tr>
+                    <th class="regdate">날짜</th>
+                    <th class="categories">분류</th>
+                    <th class="status">상태</th>
+                    <th class="importance">중요도</th>
+                    <th class="todo">해야 할 일</th>
+                    <th>비고</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+    </div>
+</body>
+</html>
