@@ -13,8 +13,36 @@
                 let status = $('#status:checked').val();
                 let importance = $('#importance:checked').val();
                 let categories = $('categories').val();
-            })
+                let todo = $('#todo').val();
+
+                let tag = `
+                <tr th:each="list : ${list}">
+                        <td>${list.regdate}</td>
+                        <td>${list.categories}</td>
+                        <td>${list.status}</td>
+                        <td>${list.importance}</td>
+                        <td>${list.todo}</td>
+                        <td>
+                            <input type="button" class="deleteBtn" value="삭제">
+                        <td>
+                    <tr>
+                `
+                if(todo.length == 0){
+                    alert('Todo 데이터를 입력해주세요');
+                } else {
+                    $('div#result table tbody').append(tag);
+                }
+                $('.deleteBtn').on('click', deleteCustomer);
+            });
         });
+
+        function deleteCustomer(){
+            if(confirm('삭제하시겠습니까?')){
+                $(this).parent().parent().remove();
+            } else{
+                event.stopImmediatePropagation();
+            }
+        }
     </script>
 </head>
 <body>
