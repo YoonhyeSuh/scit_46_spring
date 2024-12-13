@@ -30,7 +30,7 @@ public class ListController {
 	
 	@PostMapping("/list")
 	public String list(@ModelAttribute ListDTO listDTO, Model model) {
-		if() {
+		if(listDTO.getTodo() == null || listDTO.getTodo() == "") {
 			System.out.println("오류");
 		} else {
 			listService.insert(listDTO);
