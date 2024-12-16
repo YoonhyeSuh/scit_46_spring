@@ -12,7 +12,13 @@
 
         // 1) 첫 번째 요청 
         function req1(){
-            alert('error');
+            $.ajax({
+                url : 'ajaxReq1',
+                method : 'GET',
+                success : function(){
+                    console.log('응답이 왔음');
+                }
+            }); //j{} avascript object가 괄호 안에
         }
     </script>
 </head>
