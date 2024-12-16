@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX를 이용한 데이터 송수신</title>
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script>
+        $(function(){
+            $('#req1').on('click', req1);
+        });
+
+        // 1) 첫 번째 요청 
+        function req1(){
+            alert('error');
+        }
+    </script>
+</head>
+<body>
+    <h2>[ AJAX를 이용한 데이터 송수신 - 기초 ]</h2>
+    <ul>
+        <li>
+            <input type="button" id="req1" value="1. Ajax로 서버에 요청보내기">
+            <span>응답결과는 브라우저의 console창 확인하세요</span>
+        </li><br>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+</html>
