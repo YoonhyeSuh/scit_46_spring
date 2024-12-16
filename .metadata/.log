@@ -4250,3 +4250,9 @@ END
 
 !ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2024-12-16 13:49:06.658
 !MESSAGE Started org.springframework.tooling.boot.ls LS process 11420
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-12-16 17:08:31.324
+!MESSAGE Classpath changed for project: test4
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2024-12-16 17:08:31.324
+!MESSAGE Boot project ADDED: test4
