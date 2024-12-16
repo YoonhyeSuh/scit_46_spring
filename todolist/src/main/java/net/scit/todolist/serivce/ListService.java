@@ -25,7 +25,7 @@ public class ListService {
 		listRepository.deleteById(id);
 	}
 	public List<ListDTO> selectAll() {
-		List<ListEntity> entityList = listRepository.findAll(Sort.by(Sort.Direction.ASC,"name"));
+		List<ListEntity> entityList = listRepository.findAll(Sort.by(Sort.Direction.ASC,"regdate"));
 		List<ListDTO> dtoList = new ArrayList<>();
 		for(ListEntity entity : entityList) {
 			ListDTO dto = ListDTO.toDTO(entity);
