@@ -34,10 +34,10 @@ public class GuestbookEntity {
 	private Integer seqno;
 	
 	@Column(name="guest_name", nullable = false)
-	private String guest_name;
+	private String guestName;
 	
 	@Column(name="guest_pwd", nullable = false)
-	private String guest_pwd;
+	private String guestPwd;
 	
 	@Column(name="content", nullable = false)
 	private String content;
@@ -49,8 +49,8 @@ public class GuestbookEntity {
 	public static GuestbookEntity toEntity(GuestbookDTO guestbookdto) {
 		return GuestbookEntity.builder()
 				.seqno(guestbookdto.getSeqno())
-				.guest_name(guestbookdto.getGuest_name())
-				.guest_pwd(guestbookdto.getGuest_pwd())
+				.guestName(guestbookdto.getGuestName())
+				.guestPwd(guestbookdto.getGuestPwd())
 				.content(guestbookdto.getContent())
 				.regdate(guestbookdto.getRegdate())
 				.build();
