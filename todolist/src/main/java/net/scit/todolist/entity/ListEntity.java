@@ -34,7 +34,7 @@ public class ListEntity {
 	private int seqno;
 	
 	@Column(name="regdate")
-	@CreationTimestamp
+	//@CreationTimestamp
 	private LocalDate regdate;
 	
 	@Column(name="status")
