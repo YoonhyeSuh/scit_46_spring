@@ -24,7 +24,10 @@ public class ListController {
 	
 	public final ListService listService;
 	@GetMapping("/list")
-	public String list() {
+	public String list(Model model) {
+		List<ListDTO> list = listService.selectAll();
+	    model.addAttribute("list", list);
+
 		return "todo/list";
 	}
 	
@@ -35,14 +38,15 @@ public class ListController {
 		} else {
 			listService.insert(listDTO);
 			List<ListDTO> list = listService.selectAll();
-			model.addAttribute("list", list);
+		    model.addAttribute("list", list);
 		}
 		return "redirect:/todo/list";
 	}
 	
 	@GetMapping("/delete")
-	public String delete(@RequestParam(name="id")int id, Model model) {
-		listService.delete(id);
+	public String delete(@RequestParam(name="seqno")int seqno, Model model) {
+		listService.delete(seqno);		
 		return "redirect:/todo/list";
 	}
+	
 }
