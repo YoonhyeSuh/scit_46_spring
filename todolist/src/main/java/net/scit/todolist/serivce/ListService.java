@@ -35,4 +35,11 @@ public class ListService {
 		}
 		return dtoList;
 	}
+
+	public List<ListDTO> selectChoice(String importance, String categories) {
+		List<ListEntity> temp = listRepository.findByImportanceAndCategories(importance, categories, Sort.by(Sort.Direction.DESC,"regdate"));
+		List<ListDTO> list = new ArrayList<>();
+		temp.forEach((entity) -> list.add(ListDTO.toDTO(entity)));
+		return list;
+	}
 }
