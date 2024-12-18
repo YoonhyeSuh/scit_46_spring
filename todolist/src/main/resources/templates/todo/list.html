@@ -5,38 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
-    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/list.css}">
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script>
         $(function () {
-            init();
             $('#regist').on('click', function () {
-                let regdate = $('#regdate').val();
-                let status = $('input[type=radio]:checked').val();
-                let importance = $('#importance').val();
-                let categories = $('input[type=radio]:checked').val();
                 let todo = $('#todo').val();
-
-                let tag = `
-                    <tr>
-                        <td>${regdate}</td>
-                        <td>${categories}</td>
-                        <td>${status}</td>
-                        <td>${importance}</td>
-                        <td>${todo}</td>
-                        <td>
-                            <input type="button" class="deleteBtn" value="삭제">
-                        <td>
-                    <tr>
-                `
 
                 if (todo.length == 0) {
                     alert('Todo 데이터를 입력해주세요');
-                    $('#todo').focus();
+                    $('#todo').select();
+                    return;
                 } else {
-                    $('div#result table tbody').append(tag);
+                    $('#sendData').submit();
                 }
                 $('.deleteBtn').on('click', deleteCustomer);
+            });
+
+            $('#select').on('click', function () {
+                let selectImportance = $('#selectImportance').val();
+                let selectCategories = $('#selectCategories').val();
+
+
             });
         });
 
@@ -59,9 +49,10 @@
     </div>
 
     <div>
-        <form th:action="@{/todo/list}" method="POST">
+        <form th:action="@{/todo/list}" method="POST" id="sendData">
             <label>작성일:
-                <input type="date" name="regdate" id="regdate">
+                <input type="date" name="regdate" id="regdate"
+                    th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
             </label><br>
             <label>상태:
                 <input type="radio" name="status" value="진행">진행
@@ -83,7 +74,7 @@
                 <textarea name="todo" id="todo"></textarea>
             </label><br>
             <label>
-                <input type="submit" id="regist" value="할일 등록">
+                <input type="button" id="regist" value="할일 등록">
                 <input type="reset" id="cancel" value="취소">
             </label>
         </form>
@@ -91,7 +82,7 @@
 
     <div id="result">
         <p>(todo 보기)</p>
-        <th:block th:if="${list != null}">
+        <th:block th:if="${list != null and !#lists.isEmpty(list)}">
             <table>
                 <thead>
                     <tr>
@@ -103,8 +94,33 @@
                         <th>비고</th>
                     </tr>
                 </thead>
+                <div class="filter-group">
+                    <label>중요도:
+                        <select name="selectImportance" id="selectImportance">
+                            <option value="높음">높음</option>
+                            <option value="보통">보통</option>
+                            <option value="낮음">낮음</option>
+                        </select>
+                    </label>
+                    <label>분류:
+                        <select name="selectCategories" id="selectCategories">
+                            <option value="개인">개인</option>
+                            <option value="회사">회사</option>
+                        </select>
+                    </label>
+                    <input type="button" id="select" value="조회">
+                </div>
                 <tbody>
-
+                    <tr th:each="list : ${list}">
+                        <td th:text=${list.regdate}></td>
+                        <td th:text=${list.categories}></td>
+                        <td th:text=${list.status}></td>
+                        <td th:text=${list.importance}></td>
+                        <td th:text=${list.todo}></td>
+                        <td>
+                            <input type="button" class="deleteBtn" th:data-seqno="${item.seqno}" value="삭제">
+                        </td>
+                    <tr>
                 </tbody>
             </table>
         </th:block>
