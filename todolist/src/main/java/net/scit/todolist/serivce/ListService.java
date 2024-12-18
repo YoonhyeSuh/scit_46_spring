@@ -17,18 +17,21 @@ import net.scit.todolist.repository.ListRepository;
 @RequiredArgsConstructor
 public class ListService {
 	private final ListRepository listRepository;
+	
 	public void insert(ListDTO listDTO) {
 		ListEntity listEntity = ListEntity.toEntity(listDTO);
 		listRepository.save(listEntity);
 	}
-	public void delete(int id) {
-		listRepository.deleteById(id);
+	
+	public void delete(int seqno) {
+		listRepository.deleteById(seqno);
 	}
+	
 	public List<ListDTO> selectAll() {
-		List<ListEntity> entityList = listRepository.findAll(Sort.by(Sort.Direction.ASC,"regdate"));
+		List<ListEntity> entityList = listRepository.findAll(Sort.by(Sort.Direction.DESC,"regdate"));
 		List<ListDTO> dtoList = new ArrayList<>();
 		for(ListEntity entity : entityList) {
-			ListDTO dto = ListDTO.toDTO(entity);
+			dtoList.add(ListDTO.toDTO(entity));
 		}
 		return dtoList;
 	}
