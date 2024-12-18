@@ -44,9 +44,15 @@ public class ListController {
 	}
 	
 	@GetMapping("/delete")
-	public String delete(@RequestParam(name="seqno")int seqno, Model model) {
+	public String delete(@RequestParam(name="seqno")int seqno) {
 		listService.delete(seqno);		
 		return "redirect:/todo/list";
 	}
 	
+	@PostMapping("/selectChoice")
+	public String selectChoice(@RequestParam(name="importance", defaultValue="높음")String importance, @RequestParam(name="categories", defaultValue="회사")String categories, Model model){
+		List<ListDTO> list = listService.selectChoice(importance, categories);
+		model.addAttribute("list", list);
+		return "todo/list";
+	}
 }
