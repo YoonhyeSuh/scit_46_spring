@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>독서노트</title>
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+</head>
+
+<body>
+    <h2>[ 개인 독서 노트 ]</h2>
+    <div>
+        <a th:href="@{/}">
+            <img th:src="@{/images/logo.png}" alt="Home">
+        </a>
+        <p><a th:href="@{/book/regist}">구매 도서 등록</a></p>
+        <p><a th:href="@{/book/read}">독서노트 보기</a></p>
+    </div>
+</body>
+
+</html>
