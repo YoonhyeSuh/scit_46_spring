@@ -8017,3 +8017,69 @@ java.lang.InterruptedException
 
 !ENTRY org.eclipse.lsp4e 1 0 2024-12-23 16:48:21.952
 !MESSAGE [Info]	ESLint server running in node v20.16.0
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-12-23 17:16:32.441
+!MESSAGE [Info]	ESLint server running in node v20.16.0
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-12-23 17:16:32.560
+!MESSAGE [Info]	Using Typescript version (user-setting) 5.5.4 from path "C:\DownloadFiles\sts-4.26.0.RELEASE\plugins\org.eclipse.wildwebdeveloper_1.2.3.202408270415\node_modules\typescript\lib\tsserver.js"
+
+!ENTRY org.eclipse.lsp4e 1 0 2024-12-23 17:16:32.564
+!MESSAGE [Info]	Typescript Server version info: {version=5.5.4, source=user-setting}
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-23 17:16:32.570
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/sec/src/main/java/net/scit/sec/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-23 17:16:34.103
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/sec/src/main/java/net/scit/sec/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-23 17:16:36.519
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/sec/src/main/java/net/scit/sec/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-23 17:16:40.233
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/sec/src/main/java/net/scit/sec/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-23 17:16:43.012
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/sec/src/main/java/net/scit/sec/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-23 17:16:50.815
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/sec/src/main/java/net/scit/sec/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-23 17:16:58.339
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/sec/src/main/java/net/scit/sec/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-23 17:17:00.739
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/sec/src/main/java/net/scit/sec/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-23 17:17:06.077
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/sec/src/main/java/net/scit/sec/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-23 17:17:16.899
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/sec/src/main/java/net/scit/sec/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-23 17:17:19.694
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/sec/src/main/java/net/scit/sec/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-23 17:17:21.073
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/sec/src/main/java/net/scit/sec/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-23 17:18:10.140
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/sec/src/main/java/net/scit/sec/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-23 17:18:11.953
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/sec/src/main/java/net/scit/sec/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2024-12-23 17:18:22.629
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/sec/src/main/java/net/scit/sec/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 2 0 2024-12-23 17:19:25.965
+!MESSAGE Javadoc unavailable. Failed to obtain it.
+!STACK 0
+java.lang.InterruptedException
+	at java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:386)
+	at java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2096)
+	at org.eclipse.lsp4e.jdt.LSJavaHoverProvider.getHoverInfo2(LSJavaHoverProvider.java:66)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:163)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:130)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavaEditorTextHoverProxy.getHoverInfo2(JavaEditorTextHoverProxy.java:89)
+	at org.eclipse.jface.text.TextViewerHoverManager$1.run(TextViewerHoverManager.java:155)
