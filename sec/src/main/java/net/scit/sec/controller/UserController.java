@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,5 +38,16 @@ public class UserController {
 		log.info("=== {}", userDTO.toString());
 		userService.joinProc(userDTO);
 		return "redirect:/";
+	}
+	
+	/**
+	 * 아이디 중복확인 체크
+	 * @param userId
+	 * @return
+	 */
+	@PostMapping("/idCheck")
+	@ResponseBody	//ajax로 접근하기 때문
+	public Boolean idCheck(@RequestParam(name="userId")String userId) {
+		return true;
 	}
 }
