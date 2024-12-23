@@ -14,18 +14,27 @@
 		let userId = $('#userId').val();
 		
 		if(userId.trim().length < 3 || userId.trim().length > 5){
-			alert("아이디는 3~5자 이내로 입력");
+			$('#idCheck').text('아이디를 3~5자 이내로 입력해주세요!');
+			$('#idCheck').css('color', 'red');
 			$('#userId').select();
 			return;
 		}
 		$.ajax({
-			url: 'idCheck',
+			url: '/idCheck',
 			method: 'POST',
 			data: {"userId" : userId},
 			success : function(resp){	//resp는 true/false
-				check = resp;		
+				check = resp;
+				//응답값이 true면 사용가능
 				if(resp){
-					
+					check = true;
+					$('#idCheck').text('사용 가능한 아이디 입니다.');
+					$('#idCheck').css('color', 'blue');
+				} else {
+					//else면 반대
+					check = false;
+					$('#idCheck').text('사용 불가능한 아이디 입니다.');
+					$('#idCheck').css('color', 'red');
 				}
 			}
 		})
@@ -41,7 +50,7 @@
 	</div>
 	<div>
 		<form th:action="@{/joinProc}" method="POST">
-			<label>User ID : <input type="text" name="userId">
+			<label>User ID : <input type="text" id="userId" name="userId">
 				<input type="button" id="duplicate" value="중복확인">
 				<span id="idCheck"></span>
 			</label><br>
