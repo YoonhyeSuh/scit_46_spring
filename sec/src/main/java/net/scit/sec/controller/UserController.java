@@ -48,6 +48,7 @@ public class UserController {
 	@PostMapping("/idCheck")
 	@ResponseBody	//ajax로 접근하기 때문
 	public Boolean idCheck(@RequestParam(name="userId")String userId) {
-		return true;
+		boolean result = userService.idCheck(userId);
+		return result;
 	}
 }
