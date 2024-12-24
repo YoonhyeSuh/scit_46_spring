@@ -57,7 +57,7 @@
 	//중복체크
 	function duplicateCheck(){
 		// early stopping
-	     if(!lenCheck){
+	     if(!lenCheck){	//길이 체크를 안했으면 return 길이체크를 안하고 넘어가지 않게 하기 위해 넣음
 	    	 return;
 	     }
 	     let userId = $('#userId').val();
@@ -70,14 +70,14 @@
 			$('#userId').select();
 			return;
 		}*/
-		$.ajax({
+		$.ajax({	//중복확인 버튼을 누르면 넘어가는 데이터들
 			url: '/idCheck',
 			method: 'POST',
 			data: {"userId" : userId},
 			success : function(resp){	//resp는 true/false
 				//lenCheck = resp;
 				//응답값이 true면 사용가능
-				if(resp){
+				if(resp){//db에 있는것과 비교해서 중복된 값이 없으면 dupleCheck를 전역변수로 false라고 했기에 true로 고쳐준다
 					dupleCheck = true;
 					$('#idCheck').text('사용 가능한 아이디 입니다.');
 					$('#idCheck').css('color', 'blue');
@@ -97,7 +97,7 @@
 		<a th:href="@{/}">
 			<img th:src="@{/images/logo.png}">
 		</a>
-		<h2>첫 페이지</h2>
+		<h2>회원가입</h2>
 	</div>
 	<div>
 		<form th:action="@{/joinProc}" method="POST">
