@@ -5,20 +5,44 @@
 <title>Security 적용한 페이지</title>
 <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
 <script>
-	let check = true;	//사용가능한 아이디이면 true (전역변수)
+	let check = false;	//사용가능한 아이디이면 true (전역변수)
 	$(function(){
+		$('#userId').on('keyup', lengthCheck);
 		$("#duplicate").on('click', duplicateCheck);
 	});
 	
+	function lengthCheck(){
+		// $(this) = $('#userId')
+	     let userId = $('#userId').val();
+	      
+	     if (userId.trim().length < 3 || userId.trim().length > 5){
+	        $('#idCheck').text('아이디를 3~5자 이내로 입력해주세요');
+	        $('#idCheck').css({'color': 'red', 'font-size' : '0.8em'});
+	        check = false;
+	        return;
+	     } else   {
+	    	 $('#idCheck').text('');      // 빨간색 글을 지우는 작업
+	      	check = true;
+	    }
+
+	}
+	
+	//중복체크
 	function duplicateCheck(){
-		let userId = $('#userId').val();
+		// early stopping
+	     if(!check){
+	    	 return;
+	     }
+	     let userId = $('#userId').val();
+
+		/*let userId = $('#userId').val();
 		
 		if(userId.trim().length < 3 || userId.trim().length > 5){
 			$('#idCheck').text('아이디를 3~5자 이내로 입력해주세요!');
 			$('#idCheck').css('color', 'red');
 			$('#userId').select();
 			return;
-		}
+		}*/
 		$.ajax({
 			url: '/idCheck',
 			method: 'POST',
