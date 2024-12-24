@@ -28,10 +28,11 @@ public class SecurityConfig {
 		
 		//Custom 로그인
 		http.formLogin((auth) -> auth
-				.loginPage("/login")					//로그인 화면 요청
+				.loginPage("/login")				//로그인 화면 요청
 				.loginProcessingUrl("/loginProc")	//로그인 처리 요청
 				.usernameParameter("userId")		//사용자가 재정의한 아이디 파라미터
 				.passwordParameter("userPwd")		//사용자가 재정의한 비번 파라미터
+				.defaultSuccessUrl("/")				//로그인 성공시
 				.permitAll());
 		
 		//POST 요청 시 CSRF(Cross-Site request Forgery) 토근을 요청함

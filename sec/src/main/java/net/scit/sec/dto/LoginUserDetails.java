@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import net.scit.sec.entity.UserEntity;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -46,6 +47,17 @@ public class LoginUserDetails implements UserDetails {
 	
 	public String getUserName() {
 		return this.userName;
+	}
+
+	//entity --> dto
+	public static LoginUserDetails toDTO(UserEntity userEntity) {
+		return LoginUserDetails.builder()
+				.seq(userEntity.getSeq())
+				.userId(userEntity.getUserId())
+				.userPwd(userEntity.getUserPwd())
+				.userName(userEntity.getUserName())
+				.role(userEntity.getRole())
+				.build();
 	}
 
 }
