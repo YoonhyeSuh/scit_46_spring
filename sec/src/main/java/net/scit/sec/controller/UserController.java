@@ -51,4 +51,7 @@ public class UserController {
 		boolean result = userService.idCheck(userId);
 		return result;
 	}
+	
+	//login 요청은 일바 콘트롤러에서 하면 안됨!!
+	//Security가 처리하기 때문
 }
