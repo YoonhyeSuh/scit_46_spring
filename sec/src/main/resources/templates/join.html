@@ -5,12 +5,39 @@
 <title>Security 적용한 페이지</title>
 <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
 <script>
-	let check = false;	//사용가능한 아이디이면 true (전역변수)
+	let lenCheck = false;		//길이 체크
+	let dupleCheck = false; 	//사용가능한 아이디이면 true (전역변수)
+	
 	$(function(){
 		$('#userId').on('keyup', lengthCheck);
-		$("#duplicate").on('click', duplicateCheck);
+		$('#duplicate').on('click', duplicateCheck);	//일반버튼 (기능이 없음)
+		$('#joinBtn').on('click', join);	//submit(기능이 있음)
 	});
 	
+	//회원가입
+	function join(){
+		if(!lenCheck || !dupleCheck){
+			alert('아이디 중복확인을 먼저하세요!')
+			return false;	//submit 진행을 중지!
+		}
+		
+		//비밀번호 길이 체크 (3~5글자)
+		let userPwd = $('#userPwd').val();
+		if(userPwd.trim().length < 3 || userPwd.trim().length > 5){
+			alert('비밀번호를 3~5자 이내로 입력해주세요')
+			return false;
+		}
+		
+		//이름 입력 체크
+		let userName = $('#userName').val();
+		if(userName.trim().length < 1){
+			alert('이름을 입력해주세요')
+			return false;
+		}
+		return true;
+	}
+	
+	//길이 체크
 	function lengthCheck(){
 		// $(this) = $('#userId')
 	     let userId = $('#userId').val();
@@ -18,11 +45,11 @@
 	     if (userId.trim().length < 3 || userId.trim().length > 5){
 	        $('#idCheck').text('아이디를 3~5자 이내로 입력해주세요');
 	        $('#idCheck').css({'color': 'red', 'font-size' : '0.8em'});
-	        check = false;
+	        lenCheck = false;
 	        return;
-	     } else   {
+	     } else {
 	    	 $('#idCheck').text('');      // 빨간색 글을 지우는 작업
-	      	check = true;
+	    	 lenCheck = true;
 	    }
 
 	}
@@ -30,7 +57,7 @@
 	//중복체크
 	function duplicateCheck(){
 		// early stopping
-	     if(!check){
+	     if(!lenCheck){
 	    	 return;
 	     }
 	     let userId = $('#userId').val();
@@ -48,15 +75,15 @@
 			method: 'POST',
 			data: {"userId" : userId},
 			success : function(resp){	//resp는 true/false
-				check = resp;
+				//lenCheck = resp;
 				//응답값이 true면 사용가능
 				if(resp){
-					check = true;
+					dupleCheck = true;
 					$('#idCheck').text('사용 가능한 아이디 입니다.');
 					$('#idCheck').css('color', 'blue');
 				} else {
 					//else면 반대
-					check = false;
+					dupleCheck = false;
 					$('#idCheck').text('사용 불가능한 아이디 입니다.');
 					$('#idCheck').css('color', 'red');
 				}
@@ -79,13 +106,13 @@
 				<span id="idCheck"></span>
 			</label><br>
 			
-			<label>Password : <input type="password" name="userPwd">
+			<label>Password : <input type="password" id="userPwd" name="userPwd">
 			</label><br>
 			
-			<label>User Name : <input type="text" name="userName">
+			<label>User Name : <input type="text" id="userName" name="userName">
 			</label><br><br>
 			
-			<input type="submit" value="회원가입">
+			<input type="submit" id="joinBtn" value="회원가입">
 		</form>
 	</div>
 </body>
