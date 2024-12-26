@@ -28,12 +28,14 @@ public class SecurityConfig {
 		
 		//Custom 로그인
 		http.formLogin((auth) -> auth
-				.loginPage("/login")				//로그인 화면 요청
-				.loginProcessingUrl("/loginProc")	//로그인 처리 요청
-				.usernameParameter("userId")		//사용자가 재정의한 아이디 파라미터
+				.loginPage("/login")				//로그인 화면 요청 / 로그인 없이 특정페이지에 접속을 시도하면 무조건 로그인 페이지로 리다이렉팅
+				.loginProcessingUrl("/loginProc")	//로그인 처리 요청 / 로그인 화면에서 버튼을 클릭하면 시큐리티가 받아서 처리해주는 경로 / 서비스단으로 가서 서비스 처리(userdetails)
+				.usernameParameter("userId")		//사용자가 재정의한 아이디 / controller 역할을 함 / 파라미터 Security가 사용하는 파라미터 대신 
 				.passwordParameter("userPwd")		//사용자가 재정의한 비번 파라미터
 				.defaultSuccessUrl("/")				//로그인 성공시
+				.failureUrl("/login?error=true")	//로그인 실패시
 				.permitAll());
+		//세션은 아무나 들어올 수 없음
 		
 		//POST 요청 시 CSRF(Cross-Site request Forgery) 토근을 요청함
 		http.csrf((auth) -> auth.disable());
