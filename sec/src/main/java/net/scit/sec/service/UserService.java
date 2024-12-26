@@ -1,4 +1,4 @@
-package net.scit.sec.serivce;
+package net.scit.sec.service;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

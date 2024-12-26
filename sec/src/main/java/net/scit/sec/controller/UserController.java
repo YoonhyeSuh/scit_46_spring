@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.scit.sec.dto.UserDTO;
-import net.scit.sec.serivce.UserService;
+import net.scit.sec.service.UserService;
 
 @Controller
 @Slf4j
@@ -70,5 +70,14 @@ public class UserController {
 
 //		System.out.println("error ==> " + error);
 		return "login";
+	}
+	
+	/**
+	 * 로그인을 안하고 요청을 하면 login 페이지로 리다이렉팅
+	 * @return
+	 */
+	@GetMapping("/newsfeed")
+	public String newsfeed() {
+		return "newsfeed";
 	}
 }

@@ -48,6 +48,9 @@
 			<label>Password : <input type="password" id="userPwd" name="userPwd">
 			</label><br>
 			
+			<th:block th:if="${error}">
+				<span th:text="${errMessage}" style="color:red; font-size:0.8em;"></span><br>
+			</th:block>
 			<input type="submit" id="loginBtn" value="로그인">
 		</form>
 	</div>

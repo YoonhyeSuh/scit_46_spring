@@ -18,6 +18,7 @@ public class SecurityConfig {
 								"/join",
 								"/joinProc",
 								"/idCheck",
+								"/login",
 								"/favicon.ico",
 								"/images/**",
 								"/js/**",
@@ -37,7 +38,16 @@ public class SecurityConfig {
 				.permitAll());
 		//세션은 아무나 들어올 수 없음
 		
-		//POST 요청 시 CSRF(Cross-Site request Forgery) 토근을 요청함
+		//logout
+		http
+			.logout((auth) -> auth
+					.logoutUrl("/logout")	//로그아웃 요청 URL
+					.logoutSuccessUrl("/")	//로그아웃 성공시 URL
+					.invalidateHttpSession(true)); //세션 무효화
+		
+		//시큐리티는 사이트 위변조를 방어하도록 설정되어 있음
+		//개발할 때에는 위변조 방어(CSRF)를 disable 시키고 배포시 enable 시킴
+		//POST 요청 시 CSRF(Cross-Site request Forgery) 토큰을 요청함
 		http.csrf((auth) -> auth.disable());
 		return http.build();
 	}
