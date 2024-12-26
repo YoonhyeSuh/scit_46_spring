@@ -11,22 +11,40 @@ import net.scit.sec.dto.LoginUserDetails;
 import net.scit.sec.entity.UserEntity;
 import net.scit.sec.repository.UserRepository;
 
-@Service
+@Service	//userdetailsservice를 상속받기 때문에 굳이 안써도 된다
 @RequiredArgsConstructor
 @Slf4j
 public class LoginUserDetailsService implements UserDetailsService {
 
-	private final UserRepository repository;
+	private final UserRepository userRepository;	//@RequiredArgsConstructor 짝꿍 무조건 써야함
 	
+	//public과 변수명만 바꿀 수 있음
+	//오버라이드는 상속받은 메소드를 다시 재정의하는 행위
+	//매개변수명과 접근지정자보다 큰 지정자로 바꾸는 것만 가능
+	//메소드 시그니처 : 매소드 표현 기본 방법
+	//loadUserByUsername() 비밀번호 비교는 명시적으로 없다!
 	@Override
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+		
 		//Repository로 연결하는 코드
 		//UserDetails는 DTO의 한 종류
+		UserEntity userEntity = userRepository.findByUserId(userId);
 		
-		UserEntity userEntity = repository.findByUserId(userId);
-		log.info("{}", userEntity.getUserName());
-		LoginUserDetails userDetails = LoginUserDetails.toDTO(userEntity);
-		return userDetails;
+		if(userEntity != null) {	//올바른 값을 입력
+			//일반 DTO로 변환하면 안됨
+			//LoginUserDetails로 변환해서 반환해야함
+			LoginUserDetails userDTO = LoginUserDetails.toDTO(userEntity);
+			
+			return userDTO;	//다형성 때문에 가능(부모를 반환할 수 있게 함)
+		} else {
+			//객체 생성
+			//exception handler가 필요
+			throw new UsernameNotFoundException("오류");	//이 메세지를 사용하려면 클래스를 만들어야 한다.
+		}
+		
+//		log.info("{}", userEntity.getUserName());
+//		LoginUserDetails userDetails = LoginUserDetails.toDTO(userEntity);
+//		return userDetails;
 	}
 
 }
