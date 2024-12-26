@@ -23,7 +23,7 @@ import net.scit.sec.entity.UserEntity;
 @Builder
 
 public class LoginUserDetails implements UserDetails {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;	//멤버 아님 상수임
 	private Integer seq;
 	private String userId;
 	private String userPwd;
@@ -45,6 +45,7 @@ public class LoginUserDetails implements UserDetails {
 		return this.userId;
 	}
 	
+	//사용자 정의 getter(뷰단에서 사용하기 위해 만듦)
 	public String getUserName() {
 		return this.userName;
 	}
