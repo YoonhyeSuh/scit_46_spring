@@ -1,6 +1,7 @@
 package net.scit.sec.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,4 +55,20 @@ public class UserController {
 	
 	//login 요청은 일바 콘트롤러에서 하면 안됨!!
 	//Security가 처리하기 때문
+	
+	/**
+	 * 1) 로그인 화면 요청
+	 * 2) 로그인 후 아이디나 비밀번호가 잘못되었을 때에더 이 요청
+	 * @return
+	 */
+	@GetMapping("/login")
+	public String login(@RequestParam(value="error", required = false)String error, Model model) {//error를 받을 수 있는 변수 생성
+		if(error != null) {
+			model.addAttribute("error", error);
+			model.addAttribute("errMessage", "아이디나 비밀번호가 틀렸습니다.");
+		}
+
+//		System.out.println("error ==> " + error);
+		return "login";
+	}
 }
