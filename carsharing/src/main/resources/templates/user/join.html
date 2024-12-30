@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<script>
+	let lenCheck = false;		//길이 체크
+	let dupleCheck = false; 	//사용가능한 아이디이면 true (전역변수)
+	
+	$(function(){
+		$('#duplicate').on('click', duplicateCheck);	//일반버튼 (기능이 없음)
+		$('#joinBtn').on('click', join);	//submit(기능이 있음)
+	});
+	
+	//회원가입
+	function join(){
+		/*if(!lenCheck || !dupleCheck){
+			alert('아이디 중복확인을 먼저하세요!')
+			return false;	//submit 진행을 중지!
+		}*/
+		
+		//아이디 길이 체크
+		let userId = $('#userId').val(); 
+	    if (userId.trim().length < 3 || userId.trim().length > 10){
+	    	alert('ID는 3~10글자 사이로 입력해주세요.');
+	        lenCheck = false;
+	        return false;
+	    } else {
+	    	 lenCheck = true;
+	    }
+		
+		//비밀번호 길이 체크 (4~12글자)
+		let userPwd = $('#userPw').val();
+		if(userPwd.trim().length < 4 || userPwd.trim().length > 12){
+			alert('비밀번호를 4~12글자 사이로 입력해주세요')
+			return false;
+		}
+		
+		//비밀번호 확인 체크
+		let checkUserPwd = $('#checkUserPw').val();
+		if(checkUserPwd != userPwd){
+			alert('비밀번호를 확인해주세요.')
+			return false;
+		}
+
+		//이름 입력 체크
+		let userName = $('#userNm').val();
+		if(userName.trim().length < 1){
+			alert('이름을 입력해주세요')
+			return false;
+		}
+		return true;
+	}
+	
+	//중복체크
+	function duplicateCheck(){
+		// early stopping
+	     /*if(!lenCheck){	//길이 체크를 안했으면 return 길이체크를 안하고 넘어가지 않게 하기 위해 넣음
+	    	 return;
+	     }*/
+	     let userId = $('#userId').val();
+
+		$.ajax({	//중복확인 버튼을 누르면 넘어가는 데이터들
+			url: '/idCheck',
+			method: 'POST',
+			data: {"userId" : userId},
+			success : function(resp){	//resp는 true/false
+				//lenCheck = resp;
+				//응답값이 true면 사용가능
+				if(resp){//db에 있는것과 비교해서 중복된 값이 없으면 dupleCheck를 전역변수로 false라고 했기에 true로 고쳐준다
+					dupleCheck = true;
+					alert('사용할 수 있는 ID입니다.')
+				} else {
+					//else면 반대
+					dupleCheck = false;
+					alert('사용할 수 없는 ID입니다.')
+				}
+			}
+		})
+	}
+</script>
+</head>
+<body>
+	<h2>[ 회원가입 ]</h2>
+	<div>
+		<form th:action="@{/joinProc}" method="POST">
+			<label>ID <input type="text" id="userId" name="userId">
+				<input type="button" id="duplicate" value="ID중복검사">
+				<span id="idCheck"></span>
+			</label><br>
+			
+			<label>비밀번호 <input type="password" id="userPw" name="userPw">
+			</label><br>
+			
+			<label>비밀번호 확인 <input type="password" id="checkUserPw" name="checkUserPw">
+			</label><br>
+			
+			<label>이름 <input type="text" id="userNm" name="userNm">
+			</label><br><br>
+			
+			<input type="submit" id="joinBtn" value="회원가입">
+		</form>
+	</div>
+</body>
+</html>
