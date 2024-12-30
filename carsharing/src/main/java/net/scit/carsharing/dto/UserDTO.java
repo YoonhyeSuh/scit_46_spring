@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import net.scit.carsharing.entity.UserEntity;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,4 +20,13 @@ public class UserDTO {
 	private String userPw;
 	private String userNm;
 	private String roles;
+	
+	private static UserDTO toDTO(UserEntity userEntity) {
+		return UserDTO.builder()
+				.userId(userEntity.getUserId())
+				.userPw(userEntity.getUserPw())
+				.userNm(userEntity.getUserNm())
+				.roles(userEntity.getRoles())
+				.build();
+	}
 }
