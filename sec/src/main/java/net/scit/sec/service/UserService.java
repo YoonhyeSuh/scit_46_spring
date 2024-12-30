@@ -32,7 +32,7 @@ public class UserService {
 		
 		//db에 다시 저장
 		userRepository.save(entity);
-;	}
+	}
 
 	public boolean idCheck(String userId) {
 		//exists 쿼리메소드 boolean 값을 반환
