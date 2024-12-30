@@ -38,9 +38,13 @@ public class UserController {
 	 */
 	@PostMapping("/joinProc")
 	public String join(@ModelAttribute UserDTO userDTO) {
-		log.info("=== {}", userDTO.toString());
-		userService.joinProc(userDTO);
-		return "redirect:/";
+		
+		if(userService.joinProc(userDTO)) {
+			log.info("=== {}", userDTO.toString());
+			return "redirect:/login";
+		} else {
+			return "redirect:/join";
+		}
 	}
 	
 	/**

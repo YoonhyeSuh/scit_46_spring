@@ -1,0 +1,29 @@
+package net.scit.carsharing.controller;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import net.scit.carsharing.dto.CarDTO;
+import net.scit.carsharing.service.CarService;
+
+@Controller
+@RequestMapping("/car")
+@Slf4j
+@RequiredArgsConstructor
+public class CarController {
+	
+	public final CarService carService;
+	
+	@GetMapping("/carList")
+	public String carList(Model model) {
+		List<CarDTO> list = carService.selectAll();
+		model.addAttribute("list", list);
+		return "book/regist";
+	}
+}

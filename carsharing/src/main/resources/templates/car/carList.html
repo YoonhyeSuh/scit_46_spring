@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>차량 목록</title>
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<script>
+	
+</script>
+</head>
+<body>
+	<h2>[ 차량목록 ]</h2>
+	<div>
+		<table>
+			<tr>
+    			<th>번호</th>
+    			<th>차종</th>
+    			<th>상태</th>
+    		</tr>
+    		<tr th:each = "carlist : carlist">
+    			<td th:text = "${carlist.carSeq}"></td>
+    			<td th:text = "${carlist.carType}"></td>
+    			<td>
+    				<input type="button" id="reservation" value="예약가능">
+    			</td>
+    		</tr>
+		</table>
+	</div>
+</body>
+</html>

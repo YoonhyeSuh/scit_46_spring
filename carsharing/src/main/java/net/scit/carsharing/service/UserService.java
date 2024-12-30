@@ -16,7 +16,10 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	public void joinProc(UserDTO userDTO) {
+	public boolean joinProc(UserDTO userDTO) {
+		
+		
+		
 		//암호화되기 전 데이터를 꺼내다
 		UserEntity entity = UserEntity.toEntity(userDTO);
 		entity.setUserPw(bCryptPasswordEncoder.encode(entity.getUserPw()));
@@ -24,6 +27,8 @@ public class UserService {
 		
 		//db에 다시 저장
 		userRepository.save(entity);
+		
+		return true;
 	}
 	
 	public boolean idCheck(String userId) {
