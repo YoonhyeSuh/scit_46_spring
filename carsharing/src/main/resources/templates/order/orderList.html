@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 예약/반납 정보</title>
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script>
+
+    </script>
+</head>
+
+<body>
+    <h2>[ 내 예약/반납 정보 ]</h2>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>차량 번호</th>
+                    <th>차종</th>
+                    <th>예약 일자</th>
+                    <th colspan="2">반납여부</th>
+                </tr>
+            </thead>
+            <tbody id="result">
+            </tbody>
+        </table>
+        <a th:href="@{/car/carList}">차량 목록 페이지로 이동</a>
+    </div>
+</body>
+
+</html>

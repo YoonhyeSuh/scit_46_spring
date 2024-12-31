@@ -1,30 +1,82 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>차량 목록</title>
-<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
-<script>
-	
-</script>
+	<meta charset="UTF-8">
+	<title>차량 목록</title>
+	<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+	<script>
+		$(function () {
+			init();
+		})
+
+		function init() {
+			$.ajax({
+				url: 'list',
+				method: 'GET',
+				success: output
+			})
+		}
+
+		function output(resp) {
+			// 표 초기화
+			$('#result').html('');
+
+			$.each(resp, function (index, item) {
+				let buttonValue = item.carStatus === 0 ? '예약 가능' : '예약 중';
+				let buttonDisabled = item.carStatus === 1 ? 'disabled' : '';
+				let tag = `
+					<tr>
+						<td>${item.carSeq}</td>
+						<td>${item.carType}</td>
+						<td>
+							<input type="button" data-carSeq="${item.carSeq}" class="reservation"  value="${buttonValue}" ${buttonDisabled}>
+						</td>
+					</tr>	
+				`;
+				$('#result').append(tag);
+			})
+
+			$('.reservation').on('click', reservation);
+		}
+
+		function reservation() {
+			let carSeq = $(this).attr("data-carseq");
+			let sendData = { "carSeq": carSeq }
+			$.ajax({
+				url: '/car/reservated',
+				method: 'POST',
+				data: sendData,
+				success: function (resp) {
+					if (resp.success) {
+						window.location.href = "/order/orderList";
+					} else {
+						alert("예약에 실패했습니다.");
+						init();
+					}
+				}
+			})
+		}
+
+	</script>
 </head>
+
 <body>
 	<h2>[ 차량목록 ]</h2>
 	<div>
 		<table>
-			<tr>
-    			<th>번호</th>
-    			<th>차종</th>
-    			<th>상태</th>
-    		</tr>
-    		<tr th:each = "carlist : carlist">
-    			<td th:text = "${carlist.carSeq}"></td>
-    			<td th:text = "${carlist.carType}"></td>
-    			<td>
-    				<input type="button" id="reservation" value="예약가능">
-    			</td>
-    		</tr>
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>차종</th>
+					<th>상태</th>
+				</tr>
+			</thead>
+			<tbody id="result">
+			</tbody>
 		</table>
+		<a th:href="@{/order/orderList}">내 예약/반납 정보</a>
 	</div>
 </body>
+
 </html>

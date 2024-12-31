@@ -17,11 +17,11 @@ import net.scit.carsharing.entity.OrderEntity;
 @ToString
 @Builder
 public class OrderDTO {
-	Integer orderSeq;
-	String userId;
-	Integer carId;
-	Boolean sharingStatus;
-	LocalDate sharingDate;
+	private Integer orderSeq;
+	private String userId;
+	private Integer carId;
+	private Boolean sharingStatus;
+	private LocalDate sharingDate;
 	
 	public static OrderDTO toDTO(OrderEntity orderEntity) {
 		return OrderDTO.builder()

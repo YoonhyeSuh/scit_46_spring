@@ -15,9 +15,9 @@ import net.scit.carsharing.entity.CarEntity;
 @ToString
 @Builder
 public class CarDTO {
-	Integer carSeq;
-	String carType;
-	Boolean carStatus;
+	private Integer carSeq;
+	private String carType;
+	private Boolean carStatus;
 	
 	public static CarDTO toDTO(CarEntity carEntity) {
 		return CarDTO.builder()

@@ -21,15 +21,13 @@ public class LoginUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 		
-		//Repository로 연결하는 코드
-		//UserDetails는 DTO의 한 종류
-		UserEntity userEntity = userRepository.findByUserId(userId);
-		
-		//일반 DTO로 변환하면 안됨
-		//LoginUserDetails로 변환해서 반환해야함
-		
-		LoginUserDetails userDTO = LoginUserDetails.toDTO(userEntity);
-		return userDTO;
+		UserEntity entity = userRepository.findByUserId(userId);
+		if(entity != null) {
+			LoginUserDetails userDetails = LoginUserDetails.toDTO(entity);
+			return userDetails;
+		} else {
+			throw new UsernameNotFoundException("로그인 정보가 없습니다.");
+		}
 	}
 
 }
