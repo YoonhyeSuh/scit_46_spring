@@ -29,20 +29,22 @@
             <table>
                 <tr>
                     <th>작성자</th>
-                    <td>홍길동</td>
+                    <td>
+                    	<input type="text" name="boardWriter" value="홍길동" id="boardWriter" readonly>
+                    </td>
                 </tr>
 
                 <tr>
                     <th>글제목</th>
                     <td>
-                        <input type="text" name="boardTitle" id="boardTitle">
+                        <input type="text" name="boardTitle" id="boardTitle" placeholder="글제목을 입력하세요" required> <!-- 폼 안에서 submit을 줘야함 그냥 button시 js에서 유효성 검사해야함  -->
                     </td>
                 </tr>
 
                 <tr>
                     <th>글내용</th>
                     <td>
-                        <textarea name="boardContent" id="boardContent"></textarea>
+                        <textarea name="boardContent" id="boardContent" placeholder="글내용을 입력하세요"></textarea>
                     </td>
                 </tr>
 
