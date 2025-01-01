@@ -43,6 +43,10 @@ public class LoginUserDetails implements UserDetails {
 	public String getUsername() {
 		return this.userId;
 	}
+	
+	public String getUserNm() {
+		return this.userNm;
+	}
 
 	//entity --> dto
 	public static LoginUserDetails toDTO(UserEntity userEntity) {

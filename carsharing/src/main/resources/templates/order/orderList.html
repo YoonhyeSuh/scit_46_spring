@@ -7,25 +7,92 @@
     <title>내 예약/반납 정보</title>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script>
+        $(function () {
+            init();
+        })
 
+        function init() {
+            $.ajax({
+                url: '/order/reserveList',
+                method: 'GET',
+                success: output
+            })
+        }
+
+        function output(resp) {
+            let tag = "";
+            if (resp.length > 0) {
+                tag += `
+                    <table>
+                        <tr>
+                        <th>차량 번호</th>
+                        <th>차종</th>
+                        <th>예약 일자</th>
+                        <th>반납 여부</th>
+                        </tr>
+                `;
+
+                $(resp).each(function (index, item) {
+                    let statusTag =
+                        item["sharingStatus"] === true
+                            ? `<span>예약 중</span><input type="button" class="returnBtn" value="반납하기" data-orderseq="${item["orderSeq"]}" data-carseq="${item["carId"]}">`
+                            : `<span>반납 완료</span>`;
+
+                    tag += `
+	                      <tr>
+	                        <td>${item.carId}</td>
+	                        <td>${item.carType}</td>
+                            <td>${item.sharingDate}</td>
+	                        <td>${statusTag}</td>
+	                       </tr>
+	                        `;
+                });
+                tag += `</table>`;
+            } else {
+                tag += `<span><b>예약/반납 내역이 없습니다.</b></span>`
+            }
+
+            $("#orderResult").html(tag);
+            $(".returnBtn").on("click", returnCar);
+        }
+
+        function returnCar() {
+            let carSeq = $(this).attr("data-carseq");
+            let orderSeq = $(this).attr("data-orderseq");
+
+            let sendData = {
+                carSeq: carSeq,
+                orderSeq: orderSeq,
+            };
+
+            $.ajax({
+                url: "/order/return",
+                method: "POST",
+                data: sendData,
+                success: function (resp) {
+                    if (resp.success) {
+                        window.location.href = "/car/carList";
+                    } else {
+                        alert("예약에 실패했습니다.");
+                        init();
+                    }
+                },
+            });
+        }
     </script>
 </head>
 
 <body>
-    <h2>[ 내 예약/반납 정보 ]</h2>
     <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>차량 번호</th>
-                    <th>차종</th>
-                    <th>예약 일자</th>
-                    <th colspan="2">반납여부</th>
-                </tr>
-            </thead>
-            <tbody id="result">
-            </tbody>
-        </table>
+        <a th:href="@{/}">
+            <img th:src="@{/images/car.png}" alt="car" />
+        </a>
+        <h2>[ 내 예약/반납 정보 ]</h2>
+    </div>
+
+    <div id="orderResult">
+    </div>
+    <div>
         <a th:href="@{/car/carList}">차량 목록 페이지로 이동</a>
     </div>
 </body>

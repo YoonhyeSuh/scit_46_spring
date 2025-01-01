@@ -1,6 +1,6 @@
 package net.scit.carsharing.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,16 +20,18 @@ public class OrderDTO {
 	private Integer orderSeq;
 	private String userId;
 	private Integer carId;
+	private String carType;
 	private Boolean sharingStatus;
-	private LocalDate sharingDate;
+	private LocalDateTime sharingDate;
 	
 	public static OrderDTO toDTO(OrderEntity orderEntity) {
 		return OrderDTO.builder()
 				.orderSeq(orderEntity.getOrderSeq())
-				.userId(orderEntity.getUser().getUserId())
-				.carId(orderEntity.getCar().getCarSeq())
-				.sharingStatus(orderEntity.getSharingStatus())
-				.sharingDate(orderEntity.getSharingDate())
-				.build();
+                .userId(orderEntity.getUser() != null ? orderEntity.getUser().getUserId() : null)
+                .carId(orderEntity.getCar() != null ? orderEntity.getCar().getCarSeq() : null)
+                .carType(orderEntity.getCar() != null ? orderEntity.getCar().getCarType() : null)
+                .sharingStatus(orderEntity.getSharingStatus())
+                .sharingDate(orderEntity.getSharingDate())
+                .build();
 	}
 }

@@ -19,34 +19,42 @@
 		}
 
 		function output(resp) {
-			// 표 초기화
-			$('#result').html('');
+
+			let tag = `
+				<table>
+					<tr>
+					<th>번호</th>
+					<th>차종</th>
+					<th>상태</th>
+					</tr>
+            `;
 
 			$.each(resp, function (index, item) {
-				let buttonValue = item.carStatus === 0 ? '예약 가능' : '예약 중';
-				let buttonDisabled = item.carStatus === 1 ? 'disabled' : '';
-				let tag = `
+				let button =
+					item["carStatus"] === true
+						? `<input type="button" value="예약 중" disabled>`
+						: `<input type="button" class="reservation" value="예약 가능" data-carseq="${item.carSeq}">`;
+				tag += `
 					<tr>
 						<td>${item.carSeq}</td>
 						<td>${item.carType}</td>
-						<td>
-							<input type="button" data-carSeq="${item.carSeq}" class="reservation"  value="${buttonValue}" ${buttonDisabled}>
-						</td>
+						<td>${button}</td>
 					</tr>	
 				`;
-				$('#result').append(tag);
 			})
 
+			tag += `</table>`;
+
+			$('#result').html(tag);
 			$('.reservation').on('click', reservation);
 		}
 
 		function reservation() {
 			let carSeq = $(this).attr("data-carseq");
-			let sendData = { "carSeq": carSeq }
 			$.ajax({
-				url: '/car/reservated',
+				url: "/car/reservated",
 				method: 'POST',
-				data: sendData,
+				data: { "carSeq": carSeq },
 				success: function (resp) {
 					if (resp.success) {
 						window.location.href = "/order/orderList";
@@ -62,19 +70,16 @@
 </head>
 
 <body>
-	<h2>[ 차량목록 ]</h2>
 	<div>
-		<table>
-			<thead>
-				<tr>
-					<th>번호</th>
-					<th>차종</th>
-					<th>상태</th>
-				</tr>
-			</thead>
-			<tbody id="result">
-			</tbody>
-		</table>
+		<a th:href="@{/}">
+			<img th:src="@{/images/car.png}" alt="car" />
+		</a>
+		<h2>[ 차량목록 ]</h2>
+	</div>
+
+	<div id="result">
+	</div>
+	<div>
 		<a th:href="@{/order/orderList}">내 예약/반납 정보</a>
 	</div>
 </body>

@@ -40,7 +40,7 @@ public class CarEntity {
 	@Column(name="car_status")
 	private Boolean carStatus;
 	
-	@OneToMany(mappedBy="car", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
 	private List<OrderEntity> order;
 	
 	public static CarEntity toEntity(CarDTO carDTO) {

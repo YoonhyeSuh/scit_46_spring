@@ -12,19 +12,18 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 	//요청 URL을 제어하는 메소드
 		@Bean
-		public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 			http.authorizeHttpRequests((auth) -> auth
 					.requestMatchers("/",
 									"/join",
 									"/joinProc",
 									"/idCheck",
 									"/login",
-									"/favicon.ico",
 									"/js/**",
+									"/images/**",
 									"/css/**").permitAll()					//인증절차없이 접근
 					.requestMatchers("/admin").hasRole("ADMIN")				//admin으로 인증될때만 접근가능
 					.requestMatchers("/car/**").hasAnyRole("ADMIN","USER")	//ROLE_ADMIN /car로 시작하는 요청은 ADMIN과 USER 접속할 수 있음
-					.requestMatchers("/order/**").hasAnyRole("ADMIN","USER")	
 					.anyRequest().authenticated());							//기타 다른 경로는 인증된 사용자만 접근 가능
 			
 			//Custom 로그인

@@ -1,8 +1,8 @@
 package net.scit.carsharing.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-import org.hibernate.annotations.CurrentTimestamp;
+import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -48,16 +48,17 @@ public class OrderEntity {
 	private Boolean sharingStatus;
 	
 	@Column(name="sharing_date")
-	@CurrentTimestamp
-	private LocalDate sharingDate;
+	@CreationTimestamp
+	private LocalDateTime sharingDate;
 	
 	public static OrderEntity toEntity(OrderDTO orderDTO, UserEntity userEntity, CarEntity carentity) {//orderDTO를 가져오면 id값을 찾는 일을 한번 더 해야함 그래서 각 entity를 넣는다
 		return OrderEntity.builder()
 				.orderSeq(orderDTO.getOrderSeq())
 				.sharingStatus(orderDTO.getSharingStatus())
-				.sharingDate(orderDTO.getSharingDate())
+                .sharingDate(orderDTO.getSharingDate())
 				.user(userEntity)
 				.car(carentity)
 				.build();
 	}
+
 }
