@@ -7,7 +7,6 @@
     <fullyQualifiedTypeName name="net.scit.spring5.dto.PhoneDTO"/>
     <fullyQualifiedTypeName name="net.scit.hw_cash.dto.CashBookDTO"/>
     <fullyQualifiedTypeName name="net.scit.hw_cashbook.entity.CashBookEntity"/>
-    <fullyQualifiedTypeName name="java.util.Map"/>
     <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="net.scit.guestbook.service.GuestbookSerivce"/>
     <fullyQualifiedTypeName name="net.scit.guestbook.service.GuestbookService"/>
@@ -24,13 +23,14 @@
     <fullyQualifiedTypeName name="net.scit.sec.entity.UserEntity"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.annotation.AuthenticationPrincipal"/>
     <fullyQualifiedTypeName name="org.springframework.ui.Model"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="net.scit.carsharing.dto.LoginUserDetails"/>
     <fullyQualifiedTypeName name="net.scit.carsharing.entity.OrderEntity"/>
     <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
     <fullyQualifiedTypeName name="java.time.LocalDate"/>
     <fullyQualifiedTypeName name="org.springframework.data.domain.Sort"/>
     <fullyQualifiedTypeName name="org.springframework.data.domain.Sort.Direction"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="java.util.Optional"/>
     <fullyQualifiedTypeName name="jakarta.transaction.Transactional"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
 </qualifiedTypeNameHistroy>
