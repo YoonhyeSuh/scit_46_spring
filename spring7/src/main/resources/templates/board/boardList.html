@@ -62,12 +62,14 @@
                     </tr>
 
                     <!-- 게시글 반복 구간 -->
-                    <tr>
-                        <td>1</td>
-                        <td>오늘은 2024년 12월 30일</td>
-                        <td>김동영</td>
-                        <td>0</td>
-                        <td>2024-12-30 15:32</td>
+                    <tr th:each="board, status : ${list}">
+                        <td th:text="${status.count}"></td>
+                        <td>
+                        	<a th:href="@{/board/boardDetail(boardSeq=${board.boardSeq})}" th:text="${board.boardTitle}"></a>
+                        </td>
+                        <td th:text="${board.boardWriter}"></td>
+                        <td th:text="${board.hitCount}"></td>
+                        <td th:text="${#temporals.format(board.createDate, 'yyyy.MM.dd HH:mm')}"></td>
                     </tr>
                 </table>
             </th:block>
