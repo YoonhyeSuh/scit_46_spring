@@ -2,6 +2,8 @@ package net.scit.carsharing.dto;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +24,9 @@ public class OrderDTO {
 	private Integer carId;
 	private String carType;
 	private Boolean sharingStatus;
-	private LocalDateTime sharingDate;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime sharingDate; 
 	
 	public static OrderDTO toDTO(OrderEntity orderEntity) {
 		return OrderDTO.builder()
