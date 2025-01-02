@@ -47,6 +47,13 @@
                         <span th:text="${#temporals.format(board.createDate, 'yyyy.MM.dd HH:mm')}"></span>
                     </td>
                 </tr>
+                
+                <tr>
+                    <th>수정일</th>
+                    <td>
+                        <span th:text="${#temporals.format(board.updateDate, 'yyyy.MM.dd HH:mm')}"></span>
+                    </td>
+                </tr>
 
                 <tr>
                     <th>글내용</th>
@@ -64,9 +71,9 @@
 
                 <tr>
                     <th colspan="2">
-                        <a th:href="@{/board/boardUpdate(boardSeq=${board.boardSeq})}" class="btn btn-secondary">수정</a>&nbsp;
-                        <a th:href="@{/board/boardDelete(boardSeq=${board.boardSeq})}" class="btn btn-danger">삭제</a>&nbsp;
-                        <a th:href="@{/board/boardList}" class="btn btn-light">목록</a>&nbsp;
+                        <a th:href="@{/board/boardUpdate(boardSeq=${board.boardSeq},searchItem=${searchItem}, searchWord=${searchWord})}" class="btn btn-secondary">수정</a>&nbsp;
+                        <a th:href="@{/board/boardDelete(boardSeq=${board.boardSeq},searchItem=${searchItem}, searchWord=${searchWord})}" class="btn btn-danger">삭제</a>&nbsp;
+                        <a th:href="@{/board/boardList(searchItem=${searchItem}, searchWord=${searchWord})}" class="btn btn-light">목록</a>&nbsp;
                     </th>
                 </tr>
             </table>
