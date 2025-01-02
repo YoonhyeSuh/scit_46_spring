@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,6 +30,7 @@ import net.scit.spring7.dto.BoardDTO;
 
 @Entity
 @Table(name="board")
+@EntityListeners(AuditingEntityListener.class) 	//@LastModifiedDate --> 2)
 public class BoardEntity {
 	
 	@Id
@@ -52,7 +55,7 @@ public class BoardEntity {
 	private LocalDateTime createDate;
 	
 	@Column(name="update_date")
-	@LastModifiedDate
+	@LastModifiedDate	//--> 1)
 	private LocalDateTime updateDate;
 	
 	//dto -> entity (@Builder를 이용함)
