@@ -29,6 +29,8 @@
         	<!-- 2종류의 데이터(boardSeq, boardWriter: 시큐리티가 완성이 되면 삭제 예정 -->
         	<input type="hidden" name="boardSeq" th:value="${board.boardSeq}">
         	<input type="hidden" name="boardWriter" th:value="${board.boardWriter}">
+        	<input type="hidden" name="searchWord" th:value="${searchWord}">
+        	<input type="hidden" name="searchItem" th:value="${searchItem}">
             <table>
                 <tr>
                     <th>작성자</th>
