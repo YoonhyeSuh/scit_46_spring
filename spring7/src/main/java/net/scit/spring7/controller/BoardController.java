@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,10 +30,15 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("/boardList")
-	public String boardList(Model model) {
+	public String boardList(@RequestParam(name="searchItem", defaultValue = "boardTitle")String searchItem, @RequestParam(name="searchWord", defaultValue = "")String searchWord, Model model) {
 		
-		List<BoardDTO> list = boardService.selectAll();
+		log.info("== searchWord: {}", searchWord);
+		log.info("== searchItem: {}", searchItem);
+		
+		List<BoardDTO> list = boardService.selectAll(searchItem, searchWord);
 		model.addAttribute("list", list);
+		model.addAttribute("searchItem", searchItem);
+		model.addAttribute("searchWord", searchWord);
 		
 		return "board/boardList";
 	}
@@ -68,12 +74,14 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("/boardDetail")
-	public String boardDetail(@RequestParam(name="boardSeq")Long boardSeq, Model model) {//Model model은 데이터를 가져온다
+	public String boardDetail(@RequestParam(name="boardSeq")Long boardSeq, @RequestParam(name="searchItem", defaultValue = "boardTitle")String searchItem, @RequestParam(name="searchWord", defaultValue = "")String searchWord, Model model) {//Model model은 데이터를 가져온다
 		//DB에서 boardSeq에 해당하는 하나의 게시글을 조회
 		
 		BoardDTO boardDTO = boardService.selectOne(boardSeq);
 		boardService.incrementHitcount(boardSeq);
 		model.addAttribute("board", boardDTO);
+		model.addAttribute("searchItem", searchItem);
+		model.addAttribute("searchWord", searchWord);
 		return "board/boardDetail";
 	}
 	
@@ -83,8 +91,12 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("/boardDelete")
-	public String boardDelete(@RequestParam(name="boardSeq")Long boardSeq) {
+	public String boardDelete(@RequestParam(name="boardSeq")Long boardSeq, @RequestParam(name="searchItem", defaultValue = "boardTitle")String searchItem, @RequestParam(name="searchWord", defaultValue = "")String searchWord, RedirectAttributes redirectAttributes) {
 		boardService.deleteOne(boardSeq);
+		
+		//redirect시 model을 사용할 수 없다
+		redirectAttributes.addAttribute("searchItem", searchItem);
+		redirectAttributes.addAttribute("searchWord", searchWord);
 		return "redirect:/board/boardList";
 	}
 	
@@ -95,9 +107,11 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("/boardUpdate")
-	public String boardUpdate(@RequestParam(name="boardSeq")Long boardSeq, Model model) {
+	public String boardUpdate(@RequestParam(name="boardSeq")Long boardSeq, @RequestParam(name="searchItem", defaultValue = "boardTitle")String searchItem, @RequestParam(name="searchWord", defaultValue = "")String searchWord, Model model) {
 		BoardDTO boardDTO = boardService.selectOne(boardSeq);
 		model.addAttribute("board", boardDTO);
+		model.addAttribute("searchItem", searchItem);
+		model.addAttribute("searchWord", searchWord);
 		return "board/boardUpdate";
 	}
 	
@@ -107,9 +121,11 @@ public class BoardController {
 	 * @return
 	 */
 	@PostMapping("/boardUpdate")
-	public String boardUpdate(@ModelAttribute BoardDTO boardDTO) {//데이터가 4개 날라와서 한꺼번에 받음
+	public String boardUpdate(@ModelAttribute BoardDTO boardDTO, @RequestParam(name="searchItem", defaultValue = "boardTitle")String searchItem, @RequestParam(name="searchWord", defaultValue = "")String searchWord, RedirectAttributes redirectAttributes) {//데이터가 4개 날라와서 한꺼번에 받음
 		log.info("==== 수정데이터: {}", boardDTO.toString());	
 		boardService.updateBoard(boardDTO);
+		redirectAttributes.addAttribute("searchItem", searchItem);
+		redirectAttributes.addAttribute("searchWord", searchWord);
 		return "redirect:/board/boardList";
 	}
 }
