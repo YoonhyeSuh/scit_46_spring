@@ -172,7 +172,7 @@ public class BoardService {
 		BoardEntity boardEntity = temp.get();
 		boardEntity.setBoardTitle(boardDTO.getBoardTitle());
 		boardEntity.setBoardContent(boardDTO.getBoardContent());
-		
+		//boardEntity.setUpdateDate(LocalDateTime.now()); @LastModifiedDate를 안쓰고 수정 시간 업데이트
 		boardRepository.save(boardEntity);
 	
 	}
