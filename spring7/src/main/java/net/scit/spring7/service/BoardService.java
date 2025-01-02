@@ -20,11 +20,39 @@ import net.scit.spring7.repository.BoardRepository;
 public class BoardService {
 	private final BoardRepository boardRepository;
 	
-	public List<BoardDTO> selectAll(){
-		List<BoardEntity> temp = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "createDate"));
+	/**
+	 * 1) 단순조회: 게시글 전체 목록 조회
+	 * 2) 검색조회: 쿼리 메소드 사용
+	 * 
+	 * @param searchItem : boardTitle findByBoardTitleContains("쥐")
+	 * @param searchWord
+	 * @return
+	 */
+	public List<BoardDTO> selectAll(String searchItem, String searchWord){
+		
+		//2) 검색조회
+		List<BoardEntity> temp = null;
+		
+		switch(searchItem){
+			case "boardTitle": 
+				temp = boardRepository.findByBoardTitleContains(searchWord, Sort.by(Sort.Direction.DESC, "createDate"));
+				break;
+			case "boardWriter":
+				temp = boardRepository.findByBoardWriterContains(searchWord, Sort.by(Sort.Direction.DESC, "createDate"));
+				break;
+			case "boardContent": 
+				temp = boardRepository.findByBoardContentContains(searchWord, Sort.by(Sort.Direction.DESC, "createDate"));
+				break;
+		}
+		
+		
+		
+		
+		//1) 단순조회
+		//List<BoardEntity> temp = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "createDate"));
 		List<BoardDTO> list = new ArrayList<>();
 		
-		log.info("============= 총 글개수: {}", temp.size());
+		//log.info("============= 총 글개수: {}", temp.size());
 		
 		temp.forEach((entity) -> list.add(BoardDTO.toDTO(entity)));
 		return list;
@@ -70,6 +98,12 @@ public class BoardService {
 	  
 	  	delete from board
 	  	where board_seq = ?;
+	  	
+	  	조회수 증가시 줭이 일어남 ==> incrementHitcount() ==> 단순 조회에서 실행되는 코드
+	  							자신의 글은 조회수 증가를 하면 안됨
+	  	게시글 수정 시 수정이 일어남 ==> boardUpdate()
+	  	
+	  	@LastModifiedDate : 수정이 일어나면 새로운 값이 세팅됨
 	 */
 	
 	/**
