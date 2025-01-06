@@ -6,7 +6,7 @@ drop table if exists scit.board_user;
 create table scit.board_user(
 	user_id varchar(50),
 	user_pwd varchar(100) not null,
-	name varchar(50) not null, -- 실명
+	user_name varchar(50) not null, -- 실명
 	email varchar(50),
 	roles varchar(50) default 'ROLE_USER',
 	enabled char(1) default '1',
