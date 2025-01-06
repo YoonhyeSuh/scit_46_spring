@@ -15,10 +15,7 @@
     <fullyQualifiedTypeName name="net.scit.spring6.dto.BookDTO"/>
     <fullyQualifiedTypeName name="com.mysql.cj.log.Log"/>
     <fullyQualifiedTypeName name="lombok.extern.slf4j.Slf4j"/>
-    <fullyQualifiedTypeName name="jakarta.persistence.Table"/>
     <fullyQualifiedTypeName name="jakarta.persistence.GenerationType"/>
-    <fullyQualifiedTypeName name="jakarta.persistence.Id"/>
-    <fullyQualifiedTypeName name="lombok.Builder.Default"/>
     <fullyQualifiedTypeName name="org.hibernate.annotations.ColumnDefault"/>
     <fullyQualifiedTypeName name="net.scit.sec.entity.UserEntity"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.annotation.AuthenticationPrincipal"/>
@@ -33,5 +30,12 @@
     <fullyQualifiedTypeName name="jakarta.transaction.Transactional"/>
     <fullyQualifiedTypeName name="java.util.Map"/>
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.config.EnableJpaAuditing"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Table"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Id"/>
+    <fullyQualifiedTypeName name="lombok.Builder.Default"/>
+    <fullyQualifiedTypeName name="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <fullyQualifiedTypeName name="net.scit.spring7.entity.UserEntity"/>
     <fullyQualifiedTypeName name="org.springframework.ui.Model"/>
+    <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.UsernameNotFoundException"/>
+    <fullyQualifiedTypeName name="net.scit.spring7.dto.LoginUserDetails"/>
 </qualifiedTypeNameHistroy>
