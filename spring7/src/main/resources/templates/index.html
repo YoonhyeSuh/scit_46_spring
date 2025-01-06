@@ -25,14 +25,14 @@
         <ul>
             <!-- 인증하지 않은 -->
             <th:block sec:authorize="isAnonymous()">
-	            <li><a th:href="@{/user/join}">회원가입</a></li>
-	            <li><a th:href="@{/user/login}">로그인</a></li>
+                <li><a th:href="@{/user/join}">회원가입</a></li>
+                <li><a th:href="@{/user/login}">로그인</a></li>
             </th:block>
 
             <!-- 인증 한 사용자-->
             <th:block sec:authorize="isAuthenticated()">
-	            <li><a href="#">로그아웃</a></li>
-	            <li><a href="#">개인정보 수정</a></li>
+                <li><a th:href="@{/user/logout}">로그아웃</a></li>
+                <li><a href="#">개인정보 수정</a></li>
             </th:block>
 
             <!-- 인증과 관계없는 -->

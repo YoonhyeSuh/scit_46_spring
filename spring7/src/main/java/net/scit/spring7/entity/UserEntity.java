@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.scit.spring7.dto.UserDTO;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,8 +34,21 @@ public class UserEntity {
 	private String email;
 	
 	@Column(name="roles")
-	private String roles;
+	@Builder.Default
+	private String roles = "ROLE_USER";
 	
 	@Column(name="enabled")
-	private Boolean enabled;
+	@Builder.Default
+	private Boolean enabled = true;
+	
+	public static UserEntity toEntity(UserDTO userDTO) {
+		return UserEntity.builder()
+				.userId(userDTO.getUserId())
+				.userPwd(userDTO.getUserPwd())
+				.userName(userDTO.getUserName())
+				.email(userDTO.getEmail())
+//				.roles(userDTO.getRoles())		//클라이언트로부터 입력받으면 안되는 값 클라이언트가 정하면 안됨
+//				.enabled(userDTO.getEnabled())	//클라이언트로부터 입력받으면 안되는 값 사용자가 자신의 Role, Enabled를 결정하면 안됨
+				.build();
+	}
 }

@@ -19,6 +19,7 @@ public class SecurityConfig {
 								"/board/boardDetail",
 								"/user/join",
 								"/user/idCheck",
+								"/user/joinProc",
 								"/user/login",
 								"/images/**",
 								"/js/**",
