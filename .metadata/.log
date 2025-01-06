@@ -6822,3 +6822,75 @@ java.lang.InterruptedException
 	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:130)
 	at org.eclipse.jdt.internal.ui.text.java.hover.JavaEditorTextHoverProxy.getHoverInfo2(JavaEditorTextHoverProxy.java:89)
 	at org.eclipse.jface.text.TextViewerHoverManager$1.run(TextViewerHoverManager.java:155)
+
+!ENTRY org.eclipse.lsp4e 1 0 2025-01-06 15:31:05.258
+!MESSAGE [Info]	ESLint server running in node v20.16.0
+
+!ENTRY org.eclipse.lsp4e 1 0 2025-01-06 16:09:40.253
+!MESSAGE [Info]	ESLint server running in node v20.16.0
+
+!ENTRY org.eclipse.lsp4e 4 0 2025-01-06 16:12:15.760
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/spring7/src/main/java/net/scit/spring7/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2025-01-06 16:13:07.310
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/spring7/src/main/java/net/scit/spring7/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 2 0 2025-01-06 16:14:54.846
+!MESSAGE Javadoc unavailable. Failed to obtain it.
+!STACK 0
+java.lang.InterruptedException
+	at java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:386)
+	at java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2096)
+	at org.eclipse.lsp4e.jdt.LSJavaHoverProvider.getHoverInfo2(LSJavaHoverProvider.java:66)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:163)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:130)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavaEditorTextHoverProxy.getHoverInfo2(JavaEditorTextHoverProxy.java:89)
+	at org.eclipse.jface.text.TextViewerHoverManager$1.run(TextViewerHoverManager.java:155)
+
+!ENTRY org.eclipse.lsp4e 2 0 2025-01-06 16:22:38.058
+!MESSAGE Javadoc unavailable. Failed to obtain it.
+!STACK 0
+java.lang.InterruptedException
+	at java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:386)
+	at java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2096)
+	at org.eclipse.lsp4e.jdt.LSJavaHoverProvider.getHoverInfo2(LSJavaHoverProvider.java:66)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:163)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:130)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavaEditorTextHoverProxy.getHoverInfo2(JavaEditorTextHoverProxy.java:89)
+	at org.eclipse.jface.text.TextViewerHoverManager$1.run(TextViewerHoverManager.java:155)
+
+!ENTRY org.eclipse.lsp4e 1 0 2025-01-06 16:22:51.937
+!MESSAGE [Info]	ESLint server running in node v20.16.0
+
+!ENTRY org.eclipse.lsp4e 4 0 2025-01-06 16:34:14.819
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/spring7/src/main/java/net/scit/spring7/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 1 0 2025-01-06 16:36:48.967
+!MESSAGE [Info]	ESLint server running in node v20.16.0
+
+!ENTRY org.eclipse.lsp4e 4 0 2025-01-06 16:36:48.975
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/spring7/src/main/java/net/scit/spring7/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 1 0 2025-01-06 16:43:15.239
+!MESSAGE [Info]	ESLint server running in node v20.16.0
+
+!ENTRY org.eclipse.lsp4e 4 0 2025-01-06 16:43:15.248
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/spring7/src/main/java/net/scit/spring7/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2025-01-06 17:13:01.324
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/spring7/src/main/java/net/scit/spring7/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2025-01-06 17:13:02.729
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/spring7/src/main/java/net/scit/spring7/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2025-01-06 17:14:08.899
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/spring7/src/main/java/net/scit/spring7/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2025-01-06 17:14:14.738
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/spring7/src/main/java/net/scit/spring7/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2025-01-06 17:14:29.457
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/spring7/src/main/java/net/scit/spring7/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 4 0 2025-01-06 17:14:52.253
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/spring7/src/main/java/net/scit/spring7/controller/UserController.java
