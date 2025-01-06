@@ -14,6 +14,10 @@
 
     <!-- 우리 디자인 -->
     <link rel="stylesheet" href="../../static/css/user.css" th:href="@{/css/user.css}">
+
+    <!-- jQuery -->
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script defer th:src="@{/js/join.js}"></script>
 </head>
 
 <body>
@@ -30,14 +34,39 @@
     <div class="content">
         <form action="">
             <div class="section pointColor">
-                <ul>
-                    <li>
-                        <i class="fa-solid fa-fingerprint"></i>
-                        <input type="text" name="userId" id="userId" placeholder="ID 입력">
-                        <div id="confirmId" style="font-size: 0.8em;"></div>
-                    </li>
-                    <!-- 패스워드 -->
-                </ul>
+                <div class="article">
+                    <ul>
+                        <li>
+                            <i class="fa-solid fa-fingerprint"></i>
+                            <input type="text" name="userId" id="userId" placeholder="ID 입력">
+                            <div id="confirmId" style="font-size: 0.8em;"></div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" name="userPwd" id="userPwd" placeholder="비밀번호 입력">
+                            <div id="confirmPwd" style="font-size: 0.8em;"></div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-key"></i>
+                            <input type="password" name="userPwdCheck" id="userPwdCheck" placeholder="비밀번호 확인">
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" name="userName" id="userName" placeholder="실명 입력">
+                            <div id="confirmUserName" style="font-size: 0.8em;"></div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" name="email" id="email" placeholder="이메일 입력">
+                            <div id="confimrEmail" style="font-size: 0.8em;"></div>
+                        </li>
+                    </ul>
+
+                    <div class="btns">
+                        <input type="submit" id="submitBtn" class="btn btn-primary" value="회원가입">&nbsp;
+                        <input type="reset" id="resetBtn" class="btn btn-light" value="초기화">
+                    </div>
+                </div>
             </div>
         </form>
     </div>
