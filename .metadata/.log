@@ -6894,3 +6894,9 @@ java.lang.InterruptedException
 
 !ENTRY org.eclipse.lsp4e 4 0 2025-01-06 17:14:52.253
 !MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/spring7/src/main/java/net/scit/spring7/controller/UserController.java
+
+!ENTRY org.eclipse.lsp4e 1 0 2025-01-06 17:35:57.847
+!MESSAGE [Info]	ESLint server running in node v20.16.0
+
+!ENTRY org.eclipse.lsp4e 4 0 2025-01-06 17:38:18.661
+!MESSAGE [Error]	Unexpected resource file:///C:/workspace/Test_Backend/spring7/src/main/java/net/scit/spring7/controller/UserController.java
