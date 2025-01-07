@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
@@ -62,6 +63,13 @@ public class BoardController {
 		//DB 등록
 		log.info("================ {}", boardDTO.toString());
 		boardService.insertBoard(boardDTO);
+		
+//		MultipartFile file = boardDTO.getUploadFile();
+//		log.info("파일 : {}", file);
+//		log.info("파일 : {}", file.getContentType());
+//		log.info("파일 : {}", file.getOriginalFilename());
+//		log.info("파일 : {}", file.getSize());
+//		log.info("파일 : {}", file.isEmpty());
 		
 		
 		return "redirect:/board/boardList";

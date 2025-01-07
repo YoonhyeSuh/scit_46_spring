@@ -34,6 +34,10 @@ create table scit.board(
 	constraint board_boardseq primary key (board_seq)
 );
 
+-- 두개의 컬럼 추가(원보파일명, 변경된 파일명)
+alter table scit.board add original_file_name varchar(500);	-- 파일의 원본이름
+alter table scit.board add saved_file_name varchar(500); -- 파일의 변경된 이름
+
 commit;
 select * from board;
 

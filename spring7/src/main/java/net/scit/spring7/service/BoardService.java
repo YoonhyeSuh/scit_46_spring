@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +14,15 @@ import lombok.extern.slf4j.Slf4j;
 import net.scit.spring7.dto.BoardDTO;
 import net.scit.spring7.entity.BoardEntity;
 import net.scit.spring7.repository.BoardRepository;
+import net.scit.spring7.util.FileService;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class BoardService {
 	private final BoardRepository boardRepository;
+	@Value("${spring.servlet.multipart.location}")
+	private String uploadPath;
 	
 	/**
 	 * 1) 단순조회: 게시글 전체 목록 조회
@@ -63,8 +67,13 @@ public class BoardService {
 	 * @param boardDTO
 	 */
 	public void insertBoard(BoardDTO boardDTO) {
-		BoardEntity entity = BoardEntity.toEntity(boardDTO);
+		String savedFileName = FileService.saveFile(boardDTO.getUploadFile(), uploadPath);
+		String originalFileName = boardDTO.getUploadFile().getOriginalFilename();
 		
+		boardDTO.setSavedFileName(savedFileName);
+		boardDTO.setOriginalFileName(originalFileName);
+		
+		BoardEntity entity = BoardEntity.toEntity(boardDTO);
 		boardRepository.save(entity);
 	}
 

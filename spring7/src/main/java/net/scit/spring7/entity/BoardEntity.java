@@ -58,6 +58,12 @@ public class BoardEntity {
 	@LastModifiedDate	//--> 1)
 	private LocalDateTime updateDate;
 	
+	@Column(name="original_file_name")
+	private String originalFileName;
+	
+	@Column(name="saved_file_name")
+	private String savedFileName;
+	
 	//dto -> entity (@Builder를 이용함)
 	//클라이언트 -> 서버
 	public static BoardEntity toEntity(BoardDTO boardDTO) {
@@ -67,6 +73,8 @@ public class BoardEntity {
 				.boardTitle(boardDTO.getBoardTitle())
 				.boardContent(boardDTO.getBoardContent())
 				.hitCount(boardDTO.getHitCount())
+				.originalFileName(boardDTO.getOriginalFileName())
+				.savedFileName(boardDTO.getSavedFileName())
 				.build();
 	}
 	

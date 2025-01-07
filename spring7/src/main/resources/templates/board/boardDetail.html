@@ -25,59 +25,64 @@
 
     <!-- 게시글 보기 화면 -->
     <div class="content">
-        
-            <table>
-                <tr>
-                    <th>작성자</th>
-                    <td>
-                    	<span th:text="${board.boardWriter}"></span>
-                    </td>
-                </tr>
 
-                <tr>
-                    <th>글제목</th>
-                    <td>
-                        <span th:text="${board.boardTitle}"></span>
-                    </td>
-                </tr>
-                
-                <tr>
-                    <th>작성일</th>
-                    <td>
-                        <span th:text="${#temporals.format(board.createDate, 'yyyy.MM.dd HH:mm')}"></span>
-                    </td>
-                </tr>
-                
-                <tr>
-                    <th>수정일</th>
-                    <td>
-                        <span th:text="${#temporals.format(board.updateDate, 'yyyy.MM.dd HH:mm')}"></span>
-                    </td>
-                </tr>
+        <table>
+            <tr>
+                <th>작성자</th>
+                <td>
+                    <span th:text="${board.boardWriter}"></span>
+                </td>
+            </tr>
 
-                <tr>
-                    <th>글내용</th>
-                    <td>
-                        <pre>[[ ${board.boardContent} ]]</pre>
-                    </td>
-                </tr>
+            <tr>
+                <th>글제목</th>
+                <td>
+                    <span th:text="${board.boardTitle}"></span>
+                </td>
+            </tr>
 
-                <tr>
-                    <th>첨부파일</th> <!-- 첨부 파일 작성 시 완성 -->
-                    <td>
-                        첨부된 파일이 있으면 보여질 공간
-                    </td>
-                </tr>
+            <tr>
+                <th>작성일</th>
+                <td>
+                    <span th:text="${#temporals.format(board.createDate, 'yyyy.MM.dd HH:mm')}"></span>
+                </td>
+            </tr>
 
-                <tr>
-                    <th colspan="2">
-                        <a th:href="@{/board/boardUpdate(boardSeq=${board.boardSeq},searchItem=${searchItem}, searchWord=${searchWord})}" class="btn btn-secondary">수정</a>&nbsp;
-                        <a th:href="@{/board/boardDelete(boardSeq=${board.boardSeq},searchItem=${searchItem}, searchWord=${searchWord})}" class="btn btn-danger">삭제</a>&nbsp;
-                        <a th:href="@{/board/boardList(searchItem=${searchItem}, searchWord=${searchWord})}" class="btn btn-light">목록</a>&nbsp;
-                    </th>
-                </tr>
-            </table>
-        
+            <tr>
+                <th>수정일</th>
+                <td>
+                    <span th:text="${#temporals.format(board.updateDate, 'yyyy.MM.dd HH:mm')}"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <th>글내용</th>
+                <td>
+                    <pre>[[ ${board.boardContent} ]]</pre>
+                </td>
+            </tr>
+
+            <tr>
+                <th>첨부파일</th> <!-- 첨부 파일 작성 시 완성 -->
+                <td>
+                    <span th:if="${board.originalFileName}!=null">
+                        <a th:href="@{/board/downlaod(boardSeq=${board.boardSeq})}" th:text="${board.originalFileName}"></a>
+                    </span>
+                </td>
+            </tr>
+
+            <tr>
+                <th colspan="2">
+                    <a th:href="@{/board/boardUpdate(boardSeq=${board.boardSeq},searchItem=${searchItem}, searchWord=${searchWord})}"
+                        class="btn btn-secondary">수정</a>&nbsp;
+                    <a th:href="@{/board/boardDelete(boardSeq=${board.boardSeq},searchItem=${searchItem}, searchWord=${searchWord})}"
+                        class="btn btn-danger">삭제</a>&nbsp;
+                    <a th:href="@{/board/boardList(searchItem=${searchItem}, searchWord=${searchWord})}"
+                        class="btn btn-light">목록</a>&nbsp;
+                </th>
+            </tr>
+        </table>
+
     </div>
 </body>
 
