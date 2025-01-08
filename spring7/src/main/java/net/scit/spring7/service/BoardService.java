@@ -189,20 +189,46 @@ public class BoardService {
 		//1) 첨부파일이 있는지 확인
 		MultipartFile file = boardDTO.getUploadFile();
 		
+		String newFile = !file.isEmpty() ? file.getOriginalFilename() : null;	//originalfilename..
+		
+		
 		
 		//1) 수정하려는 데이터가 있는지 확인
 		Optional<BoardEntity> temp = boardRepository.findById(boardDTO.getBoardSeq());
 		
 		if(!temp.isPresent()) return;	//없으면 return
+		
 		//2) 있으면 dto->entity로 변환
+		BoardEntity boardEntity = temp.get();
+		
+		//기존 파일이 DB에 저장되어 있는지 확인 savedFileName
+		String oldFile = boardEntity.getSavedFileName();		//기존에 저장된 파일
+		
+		//(1) 기존 파일이 있고 업로드한 파일도 있다면 --> 하드 디스크에서는 기존 파일을 삭제, 업로드한 파일을 저장(물리적)
+		//								   --> DB에는 업로드한 파일로 두개의 컬럼을 업데이트
+		//(2) 기존 파일이 없고 업로드한 파일만 있다면 --> 하드 디스크에서는 업로드한 파일을 저장(물리적)
+		//								   --> DB에는 업로드한 파일로 두개의 컬럼을 업데이트
+		
+		// 업로드한 파일이 있다면		
+		if(newFile != null) {
+			String savedFileName = null;
+			savedFileName = FileService.saveFile(file, uploadPath);
+			boardEntity.setSavedFileName(savedFileName);
+			boardEntity.setOriginalFileName(newFile);
+			
+			if(oldFile != null && newFile != null) {
+				String fullPath = uploadPath + "/" + oldFile;
+				FileService.deleteFile(fullPath);
+			}
+		}
+		
 //		BoardEntity entity = BoardEntity.toEntity(boardDTO);
 //		boardRepository.save(entity); 	//모든 값이 set됨
 		
-		BoardEntity boardEntity = temp.get();
 		boardEntity.setBoardTitle(boardDTO.getBoardTitle());
 		boardEntity.setBoardContent(boardDTO.getBoardContent());
 		//boardEntity.setUpdateDate(LocalDateTime.now()); @LastModifiedDate를 안쓰고 수정 시간 업데이트
-		boardRepository.save(boardEntity);
+		//boardRepository.save(boardEntity);
 	
 	}
 	

@@ -126,7 +126,7 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("/boardUpdate")
-	public String boardUpdate(@ModelAttribute BoardDTO boardDTO, @RequestParam(name="boardSeq")Long boardSeq, @RequestParam(name="searchItem", defaultValue = "boardTitle")String searchItem, @RequestParam(name="searchWord", defaultValue = "")String searchWord, Model model) {
+	public String boardUpdate(@RequestParam(name="boardSeq")Long boardSeq, @RequestParam(name="searchItem", defaultValue = "boardTitle")String searchItem, @RequestParam(name="searchWord", defaultValue = "")String searchWord, Model model) {
 		BoardDTO boardDTO = boardService.selectOne(boardSeq);
 		model.addAttribute("board", boardDTO);
 		model.addAttribute("searchItem", searchItem);
@@ -141,7 +141,7 @@ public class BoardController {
 	 */
 	@PostMapping("/boardUpdate")
 	public String boardUpdate(@ModelAttribute BoardDTO boardDTO, @RequestParam(name="searchItem", defaultValue = "boardTitle")String searchItem, @RequestParam(name="searchWord", defaultValue = "")String searchWord, RedirectAttributes redirectAttributes) {//데이터가 4개 날라와서 한꺼번에 받음
-		log.info("==== 수정데이터: {}", boardDTO.toString());	
+		//log.info("==== 수정데이터: {}", boardDTO.toString());	
 		boardService.updateBoard(boardDTO);
 		redirectAttributes.addAttribute("searchItem", searchItem);
 		redirectAttributes.addAttribute("searchWord", searchWord);
