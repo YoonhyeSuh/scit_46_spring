@@ -25,17 +25,17 @@
 
     <!-- 게시글 수정 화면 -->
     <div class="content">
-        <form th:action="@{/board/boardUpdate}" method="POST">
-        	<!-- 2종류의 데이터(boardSeq, boardWriter: 시큐리티가 완성이 되면 삭제 예정 -->
-        	<input type="hidden" name="boardSeq" th:value="${board.boardSeq}">
-        	<input type="hidden" name="boardWriter" th:value="${board.boardWriter}">
-        	<input type="hidden" name="searchWord" th:value="${searchWord}">
-        	<input type="hidden" name="searchItem" th:value="${searchItem}">
+        <form th:action="@{/board/boardUpdate}" method="POST" enctype="multipart/form-data">
+            <!-- 2종류의 데이터(boardSeq, boardWriter: 시큐리티가 완성이 되면 삭제 예정 -->
+            <input type="hidden" name="boardSeq" th:value="${board.boardSeq}">
+            <input type="hidden" name="boardWriter" th:value="${board.boardWriter}">
+            <input type="hidden" name="searchWord" th:value="${searchWord}">
+            <input type="hidden" name="searchItem" th:value="${searchItem}">
             <table>
                 <tr>
                     <th>작성자</th>
                     <td>
-                    	<span th:text="${board.boardWriter}"></span>
+                        <span th:text="${board.boardWriter}"></span>
                     </td>
                 </tr>
 
@@ -53,17 +53,17 @@
                     </td>
                 </tr>
 
-				<tr>
+                <tr>
                     <th>작성일</th>
                     <td>
-                    	<span th:text="${#temporals.format(board.createDate, 'yyyy.MM.dd HH:mm')}"></span>
+                        <span th:text="${#temporals.format(board.createDate, 'yyyy.MM.dd HH:mm')}"></span>
                     </td>
                 </tr>
-                
+
                 <tr>
                     <th>첨부파일</th> <!-- 첨부 파일 작성 시 완성 -->
                     <td>
-                        <input type="file" name="" id="">
+                        <input type="file" name="uploadFile" id="">
                     </td>
                 </tr>
 
