@@ -54,4 +54,15 @@ public class FileService {
 		
 		return savedFileName;
 	}
+
+	//파일 삭제
+   public static boolean deleteFile(String fullPath) {
+      boolean result = false;    //삭제여부 반환
+      
+      File file = new File(fullPath);
+      if(file.isFile()) {
+         file.delete();
+      }
+      return result;
+   }	
 }
