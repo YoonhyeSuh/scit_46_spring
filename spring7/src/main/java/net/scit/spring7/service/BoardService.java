@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -64,11 +65,18 @@ public class BoardService {
 	
 	/**
 	 * 전달받은 BoardDTO를 DB에 저장
+	 * 첨부파일 여부에 따라 DB의 두 컬럼값을 수정
 	 * @param boardDTO
 	 */
 	public void insertBoard(BoardDTO boardDTO) {
-		String savedFileName = FileService.saveFile(boardDTO.getUploadFile(), uploadPath);
-		String originalFileName = boardDTO.getUploadFile().getOriginalFilename();
+		MultipartFile uploadFile = boardDTO.getUploadFile();
+		String savedFileName = null;
+		String originalFileName = null;
+		
+		if(!uploadFile.isEmpty()) {//비워있지 않으면 실행
+			savedFileName = FileService.saveFile(boardDTO.getUploadFile(), uploadPath);
+			originalFileName = uploadFile.getOriginalFilename();
+		}
 		
 		boardDTO.setSavedFileName(savedFileName);
 		boardDTO.setOriginalFileName(originalFileName);
@@ -141,6 +149,13 @@ public class BoardService {
 		Optional<BoardEntity> temp = boardRepository.findById(boardSeq);
 		
 		if(!temp.isPresent()) return;
+		
+		//temp를 뒤져서 savedfilename이 존재하면 물리적으로 삭제
+		String savedFileName = temp.get().getSavedFileName();
+		if(savedFileName != null) {
+			String fullPath = uploadPath + "/" + savedFileName;
+			FileService.deleteFile(fullPath);
+		}
 		boardRepository.deleteById(boardSeq);
 	}
 
@@ -170,6 +185,11 @@ public class BoardService {
 	 */
 	@Transactional
 	public void updateBoard(BoardDTO boardDTO) {
+		
+		//1) 첨부파일이 있는지 확인
+		MultipartFile file = boardDTO.getUploadFile();
+		
+		
 		//1) 수정하려는 데이터가 있는지 확인
 		Optional<BoardEntity> temp = boardRepository.findById(boardDTO.getBoardSeq());
 		
@@ -186,7 +206,21 @@ public class BoardService {
 	
 	}
 	
-	
+	/**
+	 * file 명이 들어있는 2개의 컬럼의 값을 null로
+	 * @param boardSeq
+	 */
+	@Transactional
+	public void deleteFile(Long boardSeq) {
+		Optional<BoardEntity> temp = boardRepository.findById(boardSeq);
+		
+		if(temp.isPresent()) {
+			BoardEntity entity = temp.get();
+			
+			entity.setOriginalFileName(null);
+			entity.setSavedFileName(null);
+		}
+	}
 }
 
 
