@@ -17,6 +17,7 @@ public class SecurityConfig {
 				.requestMatchers("/",
 								"/board/boardList",
 								"/board/boardDetail",
+								"/board/download",
 								"/user/join",
 								"/user/idCheck",
 								"/user/joinProc",
