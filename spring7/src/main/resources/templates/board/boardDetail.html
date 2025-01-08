@@ -11,6 +11,34 @@
 
     <!-- 우리 디자인 -->
     <link rel="stylesheet" href="../../static/css/detail.css" th:href="@{/css/detail.css}">
+
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/def97ee41b.js" crossorigin="anonymous"></script>
+
+    <style>
+        .deleteFile {
+            cursor: pointer;
+        }
+    </style>
+
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script>
+        $(function () {
+            $('.deleteFile').on('click', function () {
+                let boardSeq = $(this).attr('data-seq');
+                let searchItem = $(this).attr('data-searchItem');
+                let searchWord = $(this).attr('data-searchWord');
+
+                let answer = confirm("정말로 삭제하시겠습니까?");
+                if (answer) {
+                    location.href = "/board/deleteFile?boardSeq=" + boardSeq + "&searchItem=" + searchItem + "&searchWord=" + searchWord;
+                    //location.href=`/board/deleteFile?boardSeq=boardSeq=${boardSeq},searchItem=${searchItem}, searchWord=${searchWord}`;
+                } else {
+                    alert('삭제작업을 취소합니다.');
+                }
+            })
+        })
+    </script>
 </head>
 
 <body>
@@ -66,17 +94,27 @@
                 <th>첨부파일</th> <!-- 첨부 파일 작성 시 완성 -->
                 <td>
                     <span th:if="${board.originalFileName}!=null">
-                        <a th:href="@{/board/downlaod(boardSeq=${board.boardSeq})}" th:text="${board.originalFileName}"></a>
-                    </span>
+                        <a th:href="@{/board/download(boardSeq=${board.boardSeq})}"
+                            th:text="${board.originalFileName}"></a>
+                    </span>&nbsp;
+                    <!-- 쓰레기통 : 파일이 있으면서 게시글을 쓴 주인만 보여야 함 -->
+                    <th:block th:if="${board.originalFileName!=null && board.boardWriter == #authentication.name}">
+                        <span class="deleteFile" th:data-seq="${board.boardSeq}" th:data-searchItem="${searchItem}"
+                            th:data-searchWord="${searchWord}">
+                            <i class="fa-solid fa-trash"></i>
+                        </span>
+                    </th:block>
                 </td>
             </tr>
 
             <tr>
                 <th colspan="2">
-                    <a th:href="@{/board/boardUpdate(boardSeq=${board.boardSeq},searchItem=${searchItem}, searchWord=${searchWord})}"
-                        class="btn btn-secondary">수정</a>&nbsp;
-                    <a th:href="@{/board/boardDelete(boardSeq=${board.boardSeq},searchItem=${searchItem}, searchWord=${searchWord})}"
-                        class="btn btn-danger">삭제</a>&nbsp;
+                    <th:block th:if="${board.boardWriter == #authentication.name}">
+                        <a th:href="@{/board/boardUpdate(boardSeq=${board.boardSeq},searchItem=${searchItem}, searchWord=${searchWord})}"
+                            class="btn btn-secondary">수정</a>&nbsp;
+                        <a th:href="@{/board/boardDelete(boardSeq=${board.boardSeq},searchItem=${searchItem}, searchWord=${searchWord})}"
+                            class="btn btn-danger">삭제</a>&nbsp;
+                    </th:block>
                     <a th:href="@{/board/boardList(searchItem=${searchItem}, searchWord=${searchWord})}"
                         class="btn btn-light">목록</a>&nbsp;
                 </th>
