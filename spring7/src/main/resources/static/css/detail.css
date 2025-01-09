@@ -9,12 +9,28 @@
 *             글 자세히 보기
 ********************************************* */
 div.content td {
-    width: 800px;
-    text-align: left;
+	width: 800px;
+	text-align: left;
 }
 
-pre{
+pre {
 	width: 750px;
 	height: 150px;
 	font-size: 1rem;
+}
+
+/* *********************************************
+*                      댓글
+********************************************* */
+div.reply_write {
+	width: 1000px;
+	margin: 20px auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+input#replyContent {
+	width: 900px;
+	height: 35px;
 }
