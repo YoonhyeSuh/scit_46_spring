@@ -22,6 +22,7 @@ public class SecurityConfig {
 								"/user/idCheck",
 								"/user/joinProc",
 								"/user/login",
+								"/reply/replyAll",
 								"/images/**",
 								"/js/**",
 								"/css/**").permitAll()					//인증절차없이 접근

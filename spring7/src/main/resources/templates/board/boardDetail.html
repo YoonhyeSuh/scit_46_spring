@@ -22,23 +22,7 @@
     </style>
 
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
-    <script>
-        $(function () {
-            $('.deleteFile').on('click', function () {
-                let boardSeq = $(this).attr('data-seq');
-                let searchItem = $(this).attr('data-searchItem');
-                let searchWord = $(this).attr('data-searchWord');
-
-                let answer = confirm("정말로 삭제하시겠습니까?");
-                if (answer) {
-                    location.href = "/board/deleteFile?boardSeq=" + boardSeq + "&searchItem=" + searchItem + "&searchWord=" + searchWord;
-                    //location.href=`/board/deleteFile?boardSeq=boardSeq=${boardSeq},searchItem=${searchItem}, searchWord=${searchWord}`;
-                } else {
-                    alert('삭제작업을 취소합니다.');
-                }
-            })
-        })
-    </script>
+    <script defer th:src="@{/js/reply.js}"></script>
 </head>
 
 <body>
@@ -53,7 +37,7 @@
 
     <!-- 게시글 보기 화면 -->
     <div class="content">
-
+        <input type="hidden" th:value="${board.boardSeq}" id="boardSeq">
         <table>
             <tr>
                 <th>작성자</th>

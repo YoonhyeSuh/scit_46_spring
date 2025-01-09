@@ -1,17 +1,21 @@
 package net.scit.spring7.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -63,6 +67,11 @@ public class BoardEntity {
 	
 	@Column(name="saved_file_name")
 	private String savedFileName;
+	
+	//OneToMany
+	//many를 받아와서 list로
+	@OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE)	//자식(상대편)의 변수명
+	private List<ReplyEntity> replyEntity= new ArrayList<>();
 	
 	//dto -> entity (@Builder를 이용함)
 	//클라이언트 -> 서버
