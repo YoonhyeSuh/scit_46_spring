@@ -63,6 +63,12 @@
                 <tr>
                     <th>첨부파일</th> <!-- 첨부 파일 작성 시 완성 -->
                     <td>
+                        <th:block th:if="${board.originalFileName != null}">
+                            <span th:text="${board.originalFileName}" style="color:cornflowerblue;"></span><br>
+                        </th:block>
+                        <th:block th:unless="${board.originalFileName != null}">
+                            <span style="color:crimson;">첨부파일 없음</span><br>
+                        </th:block>
                         <input type="file" name="uploadFile" id="">
                     </td>
                 </tr>

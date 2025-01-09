@@ -104,6 +104,10 @@
                             <i class="fa-solid fa-trash"></i>
                         </span>
                     </th:block>
+
+                    <th:block th:unless="${board.originalFileName != null}">
+                        <span style="color:crimson;">첨부파일 없음</span><br>
+                    </th:block>
                 </td>
             </tr>
 
