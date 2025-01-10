@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org" xmlns:sec="http://thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>이력서 관리</title>
+	<!-- 부트스트랩 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+	<!-- 우리 디자인 -->
+	<link rel="stylesheet" href="../static/css/main.css" th:href="@{/css/main.css}">
+</head>
+
+<body>
+	<div class="container">
+		<div class="logo">
+			<img src="../static/images/resume.png" th:src="@{/images/resume.png}" alt="로고">
+		</div>
+		<h2>이력서 관리</h2>
+	</div>
+
+	<div class="gnb">
+		<ul>
+			<!-- 인증하지 않은 -->
+			<th:block sec:authorize="isAnonymous()">
+				<li><a th:href="@{/user/join}">회원가입</a></li>
+				<li><a th:href="@{/user/login}">로그인</a></li>
+			</th:block>
+
+			<!-- 인증 한 사용자-->
+			<th:block sec:authorize="isAuthenticated()">
+				<li><a th:href="@{/user/logout}">로그아웃</a></li>
+				<li><a th:href="@{/resume/resumeList}">이력서 목록</a></li>
+				<li><a th:href="@{/resume/resumeWrite}">내 이력서 등록</a></li>
+			</th:block>
+		</ul>
+	</div>
+</body>
+
+</html>
