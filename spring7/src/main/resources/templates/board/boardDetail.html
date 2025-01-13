@@ -38,6 +38,7 @@
     <!-- 게시글 보기 화면 -->
     <div class="content">
         <input type="hidden" th:value="${board.boardSeq}" id="boardSeq">
+        <input type="hidden" th:value="${#authentication.name}" id="loginId">
         <table>
             <tr>
                 <th>작성자</th>
@@ -115,7 +116,9 @@
             <input type="button" id="replyBtn" class="btn btn-secondary" value="댓글입력">
         </div>
         <!-- 댓글 출력 -->
-        <div></div>
+        <div id="reply_list">
+
+        </div>
     </div>
 </body>
 

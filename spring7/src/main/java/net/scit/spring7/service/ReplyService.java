@@ -63,4 +63,16 @@ public class ReplyService {
 		
 		return list;
 	}
+
+	/**
+	 * 댓글 삭제처리
+	 * @param replySeq
+	 */
+	public void replyDelete(Long replySeq) {
+		Optional<ReplyEntity> temp =replyRepository.findById(replySeq);	//한개 데이터 반환 optional
+		
+		if(!temp.isPresent()) return;
+		
+		replyRepository.deleteById(replySeq);
+	}
 }

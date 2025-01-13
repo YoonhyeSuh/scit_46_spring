@@ -35,10 +35,26 @@ public class ReplyController {
 		return "success";
 	}
 	
+	/**
+	 * boardSeq에 해당하는 전체 댓글 조회
+	 * @param boardSeq
+	 * @return
+	 */
 	@GetMapping("/replyAll")
 	public List<ReplyDTO> replyAll(@RequestParam(name="boardSeq")Long boardSeq){
 		List<ReplyDTO> list = replyService.replyAll(boardSeq);
 		
 		return list;
+	}
+	
+	/**
+	 * replySeq 댓글 데이터 삭제
+	 * @param replySeq
+	 * @return 
+	 */
+	@GetMapping("/replyDelete")
+	public String replyDelete(@RequestParam(name="replySeq")Long replySeq) {
+		replyService.replyDelete(replySeq);
+		return "success";
 	}
 }
