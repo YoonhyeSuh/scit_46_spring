@@ -57,4 +57,20 @@ public class ReplyController {
 		replyService.replyDelete(replySeq);
 		return "success";
 	}
+	
+	/**
+	 * 수정을 위한 조회
+	 * @return
+	 */
+	@GetMapping("/replyUpdate")
+	public ReplyDTO replyUpdate(@RequestParam(name="replySeq")Long replySeq) {
+		ReplyDTO replyDTO = replyService.replySelectOne(replySeq);
+		return replyDTO;
+	}
+	
+	@PostMapping("/replyUpdateProc")
+	public String replyUpdateProc(@ModelAttribute ReplyDTO replyDTO) {
+		replyService.updateProc(replyDTO);
+		return "success";
+	}
 }

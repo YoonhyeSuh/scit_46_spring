@@ -21,6 +21,8 @@ $(function () {
 
     //댓글 입력
     $('#replyBtn').on('click', replyInsert);
+    $('#replyUpdateProc').on('click', replyUpdateProc);
+    $('#replyCancel').on('click', replyCancel);
 });
 
 //댓글 전체 조회
@@ -94,10 +96,64 @@ function replyDelete() {
     })
 }
 
-//댓글 수정 함수
+//댓글 수정을 위한 조회 함수
 function replyUpdate() {
     let replySeq = $(this).attr('data-seq');
-    alert(replySeq);
+    // alert(replySeq);
+
+    $.ajax({
+        url: '/reply/replyUpdate',
+        method: 'GET',
+        data: { "replySeq": replySeq },
+        success: function (resp) {//resp = {"":, "":}
+            let content = resp['replyContent'];
+
+            //입력창에 꽂고나서 버튼을 뒤집는다
+            $('#replyContent').val(content);    //꽂고
+            $('#replyBtn').css('display', 'none'); //뒤집기
+
+            $('#replyUpdateProc').css('display', 'inline-block');
+            $('#replyCancel').css('display', 'inline-block');
+            //alert("조회성공");
+
+        }
+    })
+}
+
+//댓글 수정처리 함수
+function replyUpdateProc() {
+    let replySeq = $(this).attr('data-seq');
+    let replyContent = $('#replyContent').val();
+
+    $.ajax({
+        url: '/reply/replyUpdateProc',
+        method: 'POST',
+        data: {
+            "replySeq": replySeq, "replyContent": replyContent
+        },
+        success: function (resp) {
+            if (resp) {
+                init();
+                $('#replyBtn').css('display', 'inline-block');
+                $('#replyUpdateProc').css('display', 'none');
+                $('#replyCancel').css('display', 'none');
+
+                $('#replyContent').val('');
+            }
+
+        }
+    })
+}
+
+//댓길 수정 취소 함수
+function replyCancel() {
+    //let replySeq = $(this).attr('data-seq');
+    //버튼을 뒤집는다
+    $('#replyBtn').css('display', 'inline-block');
+
+    $('#replyUpdateProc').css('display', 'none');
+    $('#replyCancel').css('display', 'none');
+    $('#replyContent').val('');
 }
 
 //댓글 입력

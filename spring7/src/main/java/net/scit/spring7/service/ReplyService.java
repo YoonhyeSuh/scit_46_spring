@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.scit.spring7.dto.ReplyDTO;
@@ -74,5 +75,28 @@ public class ReplyService {
 		if(!temp.isPresent()) return;
 		
 		replyRepository.deleteById(replySeq);
+	}
+
+	/**
+	 * 댓글 조회
+	 * @param replySeq
+	 * @return
+	 */
+	public ReplyDTO replySelectOne(Long replySeq) {
+		Optional<ReplyEntity> temp =replyRepository.findById(replySeq);	//한개 데이터 반환 optional
+		
+		if(!temp.isPresent()) return null;
+		
+		ReplyEntity entity = temp.get();
+		
+		ReplyDTO replyDTO = ReplyDTO.toDTO(entity, entity.getBoardEntity().getBoardSeq());
+		
+		return replyDTO;
+	}
+
+	@Transactional
+	public void updateProc(ReplyDTO replyDTO) {
+		
+		
 	}
 }

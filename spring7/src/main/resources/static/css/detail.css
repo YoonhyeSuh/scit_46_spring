@@ -38,21 +38,21 @@ input#replyContent {
 
 /* 댓글 표현 영역*/
 div#reply_list td.no {
-	width: 150px;
+	width: 100px;
 	text-align: center;
 }
 
 div#reply_list td.btns {
-	width: 300px;
+	width: 180px;
 	text-align: center;
 }
 
 div#reply_list td.date {
-	width: 350px;
+	width: 200px;
 	text-align: center;
 }
 
 div#reply_list td.writer {
-	width: 300px;
+	width: 100px;
 	text-align: center;
 }
