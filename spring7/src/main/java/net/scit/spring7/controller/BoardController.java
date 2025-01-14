@@ -26,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.scit.spring7.dto.BoardDTO;
 import net.scit.spring7.service.BoardService;
 import net.scit.spring7.util.FileService;
+import net.scit.spring7.util.PageNavigator;
 
 @Controller
 @RequestMapping("/board")
@@ -62,10 +63,14 @@ public class BoardController {
 		
 		//2) 검색 기능 + 페이지기능
 		Page <BoardDTO> list = boardService.selectAll(pageable, searchItem, searchWord);
+		int totalPages = list.getTotalPages();		//DB가 계산해준 총 페이지 수
+		int page = pageable.getPageNumber();		//현재 사용자가 요청한 페이지
+		PageNavigator navi = new PageNavigator(pageLimit, page, totalPages);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("searchItem", searchItem);
 		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("navi", navi);
 		return "board/boardList";
 	}
 	
