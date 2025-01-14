@@ -31,7 +31,7 @@ class Spring7ApplicationTests {
 				"이 기상과 이맘으로 충성을 다하여 괴로우나 즐거우나 나라 사랑하세",
 				"가을하늘 공활한데 높고 구름없이 밝은 달은 우리 기상일세"};
 		
-		for(int i = 0; i < 30; i++) {
+		for(int i = 0; i < 80; i++) {
 			int idxW = (int)(Math.random() * w.length);
 			int idxC = (int)(Math.random() * c.length);
 			

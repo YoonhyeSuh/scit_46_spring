@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,43 +28,98 @@ public class BoardService {
 	@Value("${spring.servlet.multipart.location}")
 	private String uploadPath;
 	
+	@Value("${user.board.pageLimit}")
+	private int pageLimit;
 	/**
 	 * 1) 단순조회: 게시글 전체 목록 조회
 	 * 2) 검색조회: 쿼리 메소드 사용
-	 * 
+	 * 3)페이징 추가
+	 * @param pageable 
 	 * @param searchItem : boardTitle findByBoardTitleContains("쥐")
 	 * @param searchWord
 	 * @return
 	 */
-	public List<BoardDTO> selectAll(String searchItem, String searchWord){
+	
+	public Page<BoardDTO> selectAll(Pageable pageable, String searchItem, String searchWord){
 		
-		//2) 검색조회
-		List<BoardEntity> temp = null;
+		// -1을 한 이유 : DB의 Page는 0부터 시작함. 사용자는 1을 요청하기 때문
+		//사용자가 요청한 페이지 번호
+		int pageNumber = pageable.getPageNumber()-1;
+		
+		Page<BoardEntity> temp = null;
 		
 		switch(searchItem){
 			case "boardTitle": 
-				temp = boardRepository.findByBoardTitleContains(searchWord, Sort.by(Sort.Direction.DESC, "createDate"));
+				temp = boardRepository.findByBoardTitleContains(searchWord, PageRequest.of(pageNumber, pageLimit, Sort.by(Sort.Direction.DESC, "createDate")));
 				break;
 			case "boardWriter":
-				temp = boardRepository.findByBoardWriterContains(searchWord, Sort.by(Sort.Direction.DESC, "createDate"));
+				temp = boardRepository.findByBoardWriterContains(searchWord, PageRequest.of(pageNumber, pageLimit, Sort.by(Sort.Direction.DESC, "createDate")));
 				break;
 			case "boardContent": 
-				temp = boardRepository.findByBoardContentContains(searchWord, Sort.by(Sort.Direction.DESC, "createDate"));
+				temp = boardRepository.findByBoardContentContains(searchWord, PageRequest.of(pageNumber, pageLimit, Sort.by(Sort.Direction.DESC, "createDate")));
 				break;
 		}
 		
-		
-		
-		
 		//1) 단순조회
 		//List<BoardEntity> temp = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "createDate"));
-		List<BoardDTO> list = new ArrayList<>();
+		Page<BoardDTO> list = null;
+		list = temp.map((entity) -> BoardDTO.toDTO(entity));
+		
+		/*
+		log.info("getSize: {}", list.getSize());										//한 페이지당 글개수 
+		log.info("getTotalElements: {}", list.getTotalElements());						//전체 글개수
+		log.info("getTotalPages: {}", list.getTotalPages());							//총 페이지 수
+		log.info("getNumber: {}", list.getNumber());									//요청한 페이지
+		log.info("getNumberOfElements: {}", list.getNumberOfElements());				//현재 페이지의 총 글개수
+		log.info("isFirst: {}", list.isFirst());										//첫번째 페이지니?
+		log.info("isLast: {}", list.isLast());											//마지막 페이지니?	
+		log.info("getContent().get(0): {}", list.getContent().get(0).toString());		//
+		*/
+		
+		return list;
 		
 		//log.info("============= 총 글개수: {}", temp.size());
-		
-		temp.forEach((entity) -> list.add(BoardDTO.toDTO(entity)));
-		return list;
+		//temp.forEach((entity) -> list.add(BoardDTO.toDTO(entity)));
+		//2) Lambda 객체, Stream : List, Set, Map / 중간연산, 최종연산
 	}
+	
+	/**
+	 * 1) 단순조회: 게시글 전체 목록 조회
+	 * 2) 검색조회: 쿼리 메소드 사용
+	 * @param searchItem : boardTitle findByBoardTitleContains("쥐")
+	 * @param searchWord
+	 * @return
+	 */
+	
+//	public List<BoardDTO> selectAll(String searchItem, String searchWord){
+//		
+//		//2) 검색조회
+//		List<BoardEntity> temp = null;
+//		
+//		switch(searchItem){
+//			case "boardTitle": 
+//				temp = boardRepository.findByBoardTitleContains(searchWord, Sort.by(Sort.Direction.DESC, "createDate"));
+//				break;
+//			case "boardWriter":
+//				temp = boardRepository.findByBoardWriterContains(searchWord, Sort.by(Sort.Direction.DESC, "createDate"));
+//				break;
+//			case "boardContent": 
+//				temp = boardRepository.findByBoardContentContains(searchWord, Sort.by(Sort.Direction.DESC, "createDate"));
+//				break;
+//		}
+//		
+//		
+//		
+//		
+//		//1) 단순조회
+//		//List<BoardEntity> temp = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "createDate"));
+//		List<BoardDTO> list = new ArrayList<>();
+//		
+//		//log.info("============= 총 글개수: {}", temp.size());
+//		
+//		temp.forEach((entity) -> list.add(BoardDTO.toDTO(entity)));
+//		return list;
+//	}
 	
 	/**
 	 * 전달받은 BoardDTO를 DB에 저장

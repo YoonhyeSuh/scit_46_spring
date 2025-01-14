@@ -1,13 +1,14 @@
 package net.scit.spring7.controller;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -36,22 +37,35 @@ public class BoardController {
 	@Value("${spring.servlet.multipart.location}")
 	private String uploadPath;
 	
+	
+	@Value("${user.board.pageLimit}")
+	private int pageLimit;
+	
 	/**
 	 * 게시글 목록 요청
+	 * 1) 단순조회 : 게시글 전체 조회
+	 * 2) 검색조회 : 게시글의 특정 조건에 맞춘 조회
+	 * @param pageable
+	 * @param searchItem
+	 * @param searchWord
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/boardList")
-	public String boardList(@RequestParam(name="searchItem", defaultValue = "boardTitle")String searchItem, @RequestParam(name="searchWord", defaultValue = "")String searchWord, Model model) {
+	public String boardList(@PageableDefault(page=1) Pageable pageable, @RequestParam(name="searchItem", defaultValue = "boardTitle")String searchItem, @RequestParam(name="searchWord", defaultValue = "")String searchWord, Model model) {
 		
-		log.info("== searchWord: {}", searchWord);
-		log.info("== searchItem: {}", searchItem);
+//		log.info("== searchWord: {}", searchWord);
+//		log.info("== searchItem: {}", searchItem);
 		
-		List<BoardDTO> list = boardService.selectAll(searchItem, searchWord);
+		//1) 검색 기능 추가
+		//List<BoardDTO> list = boardService.selectAll( searchItem, searchWord);
+		
+		//2) 검색 기능 + 페이지기능
+		Page <BoardDTO> list = boardService.selectAll(pageable, searchItem, searchWord);
+		
 		model.addAttribute("list", list);
 		model.addAttribute("searchItem", searchItem);
 		model.addAttribute("searchWord", searchWord);
-		
 		return "board/boardList";
 	}
 	
