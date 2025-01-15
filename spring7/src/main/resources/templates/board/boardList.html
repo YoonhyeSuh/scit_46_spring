@@ -9,8 +9,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/def97ee41b.js" crossorigin="anonymous"></script>
+
     <!-- 우리 디자인 -->
     <link rel="stylesheet" href="../../static/css/list.css" th:href="@{/css/list.css}">
+
+    <!-- jQuery import -->
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script defer th:src="@{/js/paging.js}"></script>
 </head>
 
 <body>
@@ -28,7 +35,7 @@
         <div class="top">
             <!-- 전체 글개수 -->
             <div class="count">
-                <p>게시글 개수: 0개 </p>
+                <p>게시글 개수: <span th:text="${list.totalElements}"></span>개</p>
             </div>
 
             <!-- 검색창 -->
@@ -43,7 +50,8 @@
             	
              -->
             <div class="search">
-                <form th:action="@{/board/boardList}">
+                <form th:action="@{/board/boardList}" method="GET" id="searchForm">
+                    <input type="hidden" name="page" value="" id="requestPage">
                     <select name="searchItem" id="searchItem">
                         <option value="boardTitle" th:selected="${searchItem == 'boardTitle'}">글제목</option>
                         <option value="boardWriter" th:selected="${searchItem == 'boardWriter'}">작성자</option>
@@ -74,7 +82,7 @@
 
                     <!-- 게시글 반복 구간 -->
                     <tr th:each="board, status : ${list}">
-                        <td th:text="${status.count}"></td>
+                        <td th:text="${status.count} + (${navi.page}-1)*10"></td>
                         <th:block th:if="${board.originalFileName}!= null">
                             <td>
                                 <a th:href="@{/board/boardDetail(boardSeq=${board.boardSeq}, searchItem=${searchItem}, searchWord=${searchWord})}"
@@ -108,31 +116,38 @@
     <!--페이지 네비게이션(Pagination)-->
     <nav class="pagination">
         <!-- 앞 그룹 -->
-        &laquo;
+        <i class="fa-solid fa-backward"></i>
 
         <!-- 앞 페이지 -->
-        &lsaquo;
+        <th:block th:if="${navi.page > 1}">
+            <a th:href="|javascript:pageFormSubmit(${navi.page - 1})|"><i class="fa-solid fa-caret-left"></i></a>
+        </th:block>
+        <th:block th:unless="${navi.page > 1}">
+            <i class="fa-solid fa-caret-left"></i>
+        </th:block>
 
         <!-- 페이지 반복 구간 -->
-        <span th:each="count : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}"> <!-- 시퀀스 번호 발생 -->
-
-            <!-- 현재 페이지가 아닌 페이지 -->
+        <span th:each="count : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
             <th:block th:if="${navi.page != count}">
-                <a href="#" th:text="${count}" class="page-no"></a>&nbsp;
+                <a th:href="|javascript:pageFormSubmit(${count})|" th:text="${count}" class="page-no"></a>&nbsp;
             </th:block>
-
-            <!-- 요청한 페이지 -->
             <th:block th:if="${navi.page == count}">
                 <span th:text="${count}" class="page-no current"></span>&nbsp;
             </th:block>
         </span>
 
         <!-- 뒷 페이지 -->
-        &raquo;
+        <th:block th:if="${navi.page < navi.totalPages}">
+            <a th:href="|javascript:pageFormSubmit(${navi.page + 1})|"><i class="fa-solid fa-caret-right"></i></a>
+        </th:block>
+        <th:block th:unless="${navi.page < navi.totalPages}">
+            <i class="fa-solid fa-caret-right"></i>
+        </th:block>
 
         <!-- 뒷 그룹 -->
-        &rsaquo;
+        <i class="fa-solid fa-forward"></i>
     </nav>
+
 </body>
 
 </html>
