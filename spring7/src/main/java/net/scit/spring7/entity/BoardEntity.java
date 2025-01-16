@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Formula;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -72,6 +73,10 @@ public class BoardEntity {
 	//many를 받아와서 list로
 	@OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE)	//자식(상대편)의 변수명
 	private List<ReplyEntity> replyEntity= new ArrayList<>();
+	
+	//reply 개수
+	@Formula("(select count(1) from reply r where board_seq = r.board_seq)")
+	private int replyCount;
 	
 	//dto -> entity (@Builder를 이용함)
 	//클라이언트 -> 서버

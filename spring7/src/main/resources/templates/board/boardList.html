@@ -83,8 +83,27 @@
                     <!-- 게시글 반복 구간 -->
                     <tr th:each="board, status : ${list}">
                         <td th:text="${status.count} + (${navi.page}-1)*10"></td>
-                        <th:block th:if="${board.originalFileName}!= null">
+
+                        <td>
+                            <a th:href="@{/board/boardDetail(boardSeq=${board.boardSeq}, searchItem=${searchItem}, searchWord=${searchWord})}"
+                                th:text="${board.boardTitle}"></a>
+                            <th:block th:if="${board.replyCount != 0}">
+                                <span style="color: darkred; font-weight: bold;">
+                                    ([[${board.replyCount}]])
+                                </span>
+                            </th:block>
+
+                            <!--첨부파일 클립표시-->
+                            <th:block th:if="${board.originalFileName != null}">
+                                <i class="fa-solid fa-paperclip" style="color: red;"></i>
+                            </th:block>
+                        </td>
+
+                        <!-- 첨부파일이 있으면 클립표시 -->
+
+                        <!-- <th:block th:if="${board.originalFileName}!= null">
                             <td>
+                            
                                 <a th:href="@{/board/boardDetail(boardSeq=${board.boardSeq}, searchItem=${searchItem}, searchWord=${searchWord})}"
                                     th:text="${board.boardTitle}">
                                 </a>
@@ -98,7 +117,7 @@
                                     th:text="${board.boardTitle}">
                                 </a>
                             </td>
-                        </th:block>
+                        </th:block> -->
 
                         <td th:text="${board.boardWriter}"></td>
                         <td th:text="${board.hitCount}"></td>

@@ -38,6 +38,8 @@ public class BoardDTO {
    private String originalFileName;
    private String savedFileName;
 
+   private int replyCount;
+   
    //entity -> dto
    //서버에서 클라이언트 화면에 보여준다
    public static BoardDTO toDTO   (BoardEntity boardEntity) {
@@ -51,6 +53,7 @@ public class BoardDTO {
             .updateDate(boardEntity.getUpdateDate())
             .originalFileName(boardEntity.getOriginalFileName())
             .savedFileName(boardEntity.getSavedFileName())
+            .replyCount(boardEntity.getReplyCount())
             .build();
    }
 }
