@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -24,6 +25,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.scit.spring7.dto.BoardDTO;
+import net.scit.spring7.dto.LoginUserDetails;
 import net.scit.spring7.service.BoardService;
 import net.scit.spring7.util.FileService;
 import net.scit.spring7.util.PageNavigator;
@@ -53,7 +55,7 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("/boardList")
-	public String boardList(@PageableDefault(page=1) Pageable pageable, @RequestParam(name="searchItem", defaultValue = "boardTitle")String searchItem, @RequestParam(name="searchWord", defaultValue = "")String searchWord, Model model) {
+	public String boardList(@AuthenticationPrincipal LoginUserDetails loginUser, @PageableDefault(page=1) Pageable pageable, @RequestParam(name="searchItem", defaultValue = "boardTitle")String searchItem, @RequestParam(name="searchWord", defaultValue = "")String searchWord, Model model) {
 		
 //		log.info("== searchWord: {}", searchWord);
 //		log.info("== searchItem: {}", searchItem);
@@ -71,6 +73,10 @@ public class BoardController {
 		model.addAttribute("searchItem", searchItem);
 		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("navi", navi);
+		
+		if(loginUser != null) {
+			model.addAttribute("loginName", loginUser.getUserName()) ;
+		}
 		return "board/boardList";
 	}
 	
@@ -79,7 +85,10 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("/boardWrite")
-	public String boardWrite() {
+	public String boardWrite(@AuthenticationPrincipal LoginUserDetails loginUser, Model model) {
+		if(loginUser != null) {
+			model.addAttribute("loginName", loginUser.getUserName()) ;
+		}
 		return "board/boardWrite";
 	}
 	
@@ -101,7 +110,6 @@ public class BoardController {
 //		log.info("파일 : {}", file.getSize());
 //		log.info("파일 : {}", file.isEmpty());
 		
-		
 		return "redirect:/board/boardList";
 	}
 	
@@ -112,7 +120,7 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("/boardDetail")
-	public String boardDetail(@RequestParam(name="boardSeq")Long boardSeq, @RequestParam(name="searchItem", defaultValue = "boardTitle")String searchItem, @RequestParam(name="searchWord", defaultValue = "")String searchWord, Model model) {//Model model은 데이터를 가져온다
+	public String boardDetail(@AuthenticationPrincipal LoginUserDetails loginUser, @RequestParam(name="boardSeq")Long boardSeq, @RequestParam(name="searchItem", defaultValue = "boardTitle")String searchItem, @RequestParam(name="searchWord", defaultValue = "")String searchWord, Model model) {//Model model은 데이터를 가져온다
 		//DB에서 boardSeq에 해당하는 하나의 게시글을 조회
 		
 		BoardDTO boardDTO = boardService.selectOne(boardSeq);
@@ -120,6 +128,9 @@ public class BoardController {
 		model.addAttribute("board", boardDTO);
 		model.addAttribute("searchItem", searchItem);
 		model.addAttribute("searchWord", searchWord);
+		if(loginUser != null) {
+			model.addAttribute("loginName", loginUser.getUserName()) ;
+		}
 		return "board/boardDetail";
 	}
 	
@@ -145,11 +156,16 @@ public class BoardController {
 	 * @return
 	 */
 	@GetMapping("/boardUpdate")
-	public String boardUpdate(@RequestParam(name="boardSeq")Long boardSeq, @RequestParam(name="searchItem", defaultValue = "boardTitle")String searchItem, @RequestParam(name="searchWord", defaultValue = "")String searchWord, Model model) {
+	public String boardUpdate(@AuthenticationPrincipal LoginUserDetails loginUser, @RequestParam(name="boardSeq")Long boardSeq, @RequestParam(name="searchItem", defaultValue = "boardTitle")String searchItem, @RequestParam(name="searchWord", defaultValue = "")String searchWord, Model model) {
 		BoardDTO boardDTO = boardService.selectOne(boardSeq);
 		model.addAttribute("board", boardDTO);
 		model.addAttribute("searchItem", searchItem);
 		model.addAttribute("searchWord", searchWord);
+		
+		if(loginUser != null) {
+			model.addAttribute("loginName", loginUser.getUserName()) ;
+		}
+		
 		return "board/boardUpdate";
 	}
 	

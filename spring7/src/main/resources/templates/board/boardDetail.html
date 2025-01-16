@@ -31,14 +31,15 @@
 </head>
 
 <body>
-    <div class="container">
+	<div class="container" th:replace="fragment/header(title='회원 전용 게시판')"></div>
+    <!-- <div class="container">
         <div class="logo">
             <a href="../index.html" th:href="@{/}">
                 <img src="../../static/images/logo.png" th:src="@{/images/logo.png}" alt="로고">
             </a>
         </div>
         <h2>게시글 보기</h2>
-    </div> <!-- end .container -->
+    </div>  end .container -->
 
     <!-- 게시글 보기 화면 -->
     <div class="content">
