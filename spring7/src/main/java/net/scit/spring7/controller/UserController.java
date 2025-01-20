@@ -56,9 +56,55 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping("/login")
-	public String login(@RequestParam(name="error", required=false)String error, Model model) {
+	public String login(@RequestParam(name="error", required=false)String error, @RequestParam(name="errMessage", required=false)String errMessage, Model model) {
 		model.addAttribute("error", error);
-		model.addAttribute("errMessage", "아이디나 비밀번호가 틀렸습니다.");
+		model.addAttribute("errMessage", errMessage);
+		//model.addAttribute("errMessage", "아이디나 비밀번호가 틀렸습니다.");
 		return "user/login";
+	}
+	
+	/**
+	 * 회원정보를 위한 페이지 요청
+	 * @return
+	 */
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "/user/mypage";
+	}
+	
+	/**
+	 * 개인정보 수정을 위한 아이디 / 비번 체크
+	 * @param userId
+	 * @param userPwd
+	 * @return
+	 */
+	@PostMapping("/pwdCheck")
+	public String pwdCheck(@RequestParam(name="userId")String userId, @RequestParam(name="userPwd") String userPwd, Model model) {
+		log.info("=== {} / {} ", userId, userPwd);
+		
+		//DB에 가서 아이디와 비밀번호가 DB에 저장된 데이터와 맞는지 확인
+		UserDTO userDTO = userService.pwdCheck(userId, userPwd);
+		
+		if(userDTO != null) {
+			model.addAttribute("userDTO", userDTO);
+			return "/user/myInfoUpdate";
+		}
+		
+		return "redirect:/";
+	}
+	
+	/**
+	 * 데이터 수정 작업 요청
+	 * @param userDTO
+	 * @return
+	 */
+	@PostMapping("/updateProc")
+	public String updateProc(@ModelAttribute UserDTO userDTO) {
+		log.info("-- {}", userDTO.toString());
+		
+		//DB에서 수정처리
+		userService.updateProc(userDTO);
+		//수정을 완료하면 로그아웃
+		return "redirect:/user/logout";
 	}
 }

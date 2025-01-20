@@ -31,8 +31,13 @@
 
             <!-- 인증 한 사용자-->
             <th:block sec:authorize="isAuthenticated()">
-                <li><a th:href="@{/user/logout}">로그아웃</a></li>
-                <li><a href="#">개인정보 수정</a></li>
+                <li><a th:href="@{/user/logout}">[[${loginName}]] ([[${#authentication.name}]])님, 로그아웃</a></li>
+                <li><a th:href="@{/user/mypage}">개인정보 수정</a></li>
+                
+                <!-- 관리자인 경우 메뉴 하나 추가 -->
+                <th:block th:if="${loginUser.roles == 'ROLE_ADMIN'}">
+                	<li><a th:href="@{/admin/adminpage}">관리자 페이지</a></li>
+                </th:block>
             </th:block>
 
             <!-- 인증과 관계없는 -->
