@@ -93,10 +93,13 @@ public class ReplyService {
 		
 		return replyDTO;
 	}
-
-	@Transactional
-	public void updateProc(ReplyDTO replyDTO) {
-		
-		
+	
+	public void updateProc(Long replySeq, String replyContent) {
+		Optional<ReplyEntity> temp = replyRepository.findById(replySeq);
+		if(!temp.isPresent()) return;
+		ReplyEntity entity = temp.get();
+		entity.setReplyContent(replyContent);
+		replyRepository.save(entity);
 	}
+		
 }

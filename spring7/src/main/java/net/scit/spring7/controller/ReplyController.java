@@ -68,9 +68,14 @@ public class ReplyController {
 		return replyDTO;
 	}
 	
+	// 수정 처리
 	@PostMapping("/replyUpdateProc")
-	public String replyUpdateProc(@ModelAttribute ReplyDTO replyDTO) {
-		replyService.updateProc(replyDTO);
+	public String replyUpdateProc(
+			@RequestParam(name = "replySeq") Long replySeq,
+			@RequestParam(name = "replyContent") String replyContent
+			) {
+		replyService.updateProc(replySeq, replyContent);
+		
 		return "success";
 	}
 }

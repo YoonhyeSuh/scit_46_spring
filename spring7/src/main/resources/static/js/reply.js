@@ -114,6 +114,8 @@ function replyUpdate() {
 
             $('#replyUpdateProc').css('display', 'inline-block');
             $('#replyCancel').css('display', 'inline-block');
+			
+			$("#replyUpdateProc").attr("data-seq", replySeq);
             //alert("조회성공");
 
         }
