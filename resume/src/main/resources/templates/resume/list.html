@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이력서 목록</title>
+    <!-- 부트스트랩 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/def97ee41b.js" crossorigin="anonymous"></script>
+
+    <!-- 우리 디자인 -->
+    <link rel="stylesheet" href="../../static/css/main.css" th:href="@{/css/main.css}">
+
+    <!-- jQuery -->
+    <script src="../../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script defer src="../../static/js/list.js" th:src="@{/js/list.js}"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="../static/images/resume.png" th:src="@{/images/resume.png}" alt="로고">
+        </div>
+        <h2>이력서 목록</h2>
+    </div>
+
+    <div id="result">
+
+    </div>
+
+    <div id="search">
+        <table border="1">
+            <tr>
+                <th>희망근무지</th>
+                <td>
+                    <input type="radio" name="location" value="1">서울
+                    <input type="radio" name="location" value="2">부산
+                    <input type="radio" name="location" value="3">지역무관
+                    <input type="radio" name="location" value="4">전체
+                </td>
+            </tr>
+            <tr>
+                <th>희망직군</th>
+                <td>
+                    <input type="radio" name="job" value="1">프로그래머
+                    <input type="radio" name="job" value="2">퍼블리셔
+                    <input type="radio" name="job" value="3">디자이너
+                    <input type="radio" name="job" value="4">전체
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" name="search" id="search" value="검색">
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
