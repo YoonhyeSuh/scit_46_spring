@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영화 리뷰보기</title>
+    <style>
+        div#wrapper {
+            width: 700px;
+        }
+
+        hr {
+            width: 700px;
+
+            border: 2px solid blue;
+            margin: 20px 0;
+        }
+
+        .title {
+            display: inline-block;
+            width: 100px;
+        }
+
+        h3 {
+            color: darkred;
+        }
+    </style>
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(function () {
+            $('#reviewRegist').on('click', regist);
+        });
+
+        function regist() {
+            let reviewerNickname = $('#reviewerNickname').val();
+            let reviewText = $('#reviewText').val();
+            let score = parseFloat($('#score').val());
+
+            if (reviewerNickname === "") {
+                alert("닉네임을 입력하세요");
+                return;
+            }
+
+            if (reviewText === "" || reviewText.trim().length < 10) {
+                alert("리뷰 내용이 너무 짧습니다.");
+                return;
+            }
+
+            if (isNaN(score) || score < 0 || score > 10) {
+                alert("평점은 0~10점 내로 입력해주세요");
+                return;
+            }
+
+            $("#reviewForm").submit();
+        }
+    </script>
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <h2>[<span th:text="${list.movieName}">영화제목</span>]에 대한 리뷰정보입니다.</h2>
+        <h3>장르: <span th:text="${list.genre}">로맨스</span></h3>
+        <h3>영화 설명: </h3>
+        <p>
+            <span th:text="${list.movieSummary}">영화 설명 들어가는 위치</span>
+        </p>
+        <h3>관객평점: <span th:text="${#numbers.formatDecimal(averageScore, 1, 2)}"></span></h3>
+        <hr>
+        <h2>[<span>영화제목</span>] 관객 리뷰</h2>
+
+        <th:block th:unless="${!#lists.isEmpty(review)}">
+            <p>리뷰 정보가 없습니다.</p>
+        </th:block>
+
+        <th:block th:if="${!#lists.isEmpty(review)}">
+            <div>
+                <table border="1">
+                    <tr>
+                        <th>닉네임</th>
+                        <th>리뷰</th>
+                        <th>점수</th>
+                        <th>등록일</th>
+                    </tr>
+                    <!-- 반복 구간-->
+                    <tr th:each="review, status:${review}">
+                        <td th:text="${review.reviewerNickname}">길동이형</td>
+                        <td th:text="${review.reviewText}">리뷰의 내용이 출력</td>
+                        <td th:text="${review.score}">7</td>
+                        <td th:text="${#temporals.format(review.reviewDate, 'yyyy-MM-dd')}">2024-12-01</td>
+                    </tr>
+                </table>
+            </div>
+        </th:block>
+
+
+        <div>
+            <h3>내 평점은요...</h3>
+            <div>
+                <form th:action="@{/reviewRegist}" method="POST" id="reviewForm">
+                    <input type="hidden" name="movieNum" th:value="${list.movieNum}">
+                    <span class="title">닉네임:</span>
+                    <input type="text" name="reviewerNickname" id="reviewerNickname" placeholder="닉네임을 입력하세요"><br>
+
+                    <span class="title">리뷰:</span>
+                    <textarea name="reviewText" id="reviewText" cols="50" rows="5"></textarea><br>
+
+                    <span class="title">내 평점:</span>
+                    <input type="number" id="score" name="score" value="5" placeholder="내 평점(0~10)"><br><br>
+                    <input type="button" id="reviewRegist" value="등록하기">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

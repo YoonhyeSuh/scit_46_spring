@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영화리뷰 게시판</title>
+    <style>
+        th.num {
+            width: 80px;
+        }
+
+        th.genre {
+            width: 120px;
+        }
+
+        th.name {
+            width: 200px;
+        }
+
+        th.date {
+            width: 110px;
+        }
+    </style>
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(function () {
+            $('.deleteBtn').on('click', function () {
+                event.stopImmediatePropagation();
+                let movieNum = $(this).attr('data-num');
+                let movieName = $(this).closest('tr').find('td:nth-child(3) a').text().trim(); // 제목 가져오기
+                let deleteWarning = confirm(`${movieName} 영화를 삭제하겠습니까?`);
+
+                if (deleteWarning) {
+                    location.href = `movieDelete?movieNum=${movieNum}`
+                } else {
+                    return;
+                }
+            });
+        })
+    </script>
+</head>
+
+<body>
+    <h2>[영화리뷰 게시판]</h2>
+    <p> <span>정렬 ▶ </span>
+        <a th:href="@{/recent}">최신 등록 순</a>&nbsp;
+        <a th:href="@{/genreList}">장르 순</a>&nbsp;
+    </p>
+    <div>
+        <th:block th:if="${list != null and !#lists.isEmpty(list)}">
+            <table border=" 1">
+                <tr>
+                    <th class="num">번호</th>
+                    <th class="genre">장르</th>
+                    <th class="name">제목</th>
+                    <th class="date">등록일</th>
+                    <th class="btns"></th>
+                </tr>
+                <!--  반복구간 -->
+                <tr th:each="list, status:${list}">
+                    <td th:text="${status.count}">1</td>
+                    <td th:text="${list.genre}">드라마</td>
+                    <td><a th:href="@{/review(movieNum=${list.movieNum})}" th:text="${list.movieName}">보고타</a></td>
+                    <td th:text="${#temporals.format(list.movieDate, 'yyyy-MM-dd')}">2025-1-1</td>
+                    <td>
+                        <input type="button" class="deleteBtn" value="삭제" th:data-num="${list.movieNum}">
+                    </td>
+                </tr>
+            </table>
+        </th:block>
+
+        <th:block th:unless="${list != null and !#lists.isEmpty(list)}">
+            <h3>영화 정보가 없습니다.</h3>
+        </th:block>
+
+    </div>
+    <br>
+    <p>내가 찾는 영화가 없다면? <a th:href="@{/movieRegist}">영화 등록하기</a></p>
+    <p>
+    <form th:action="@{/genre}" method="GET">
+        <span>장르 골라보기 </span>
+
+        <select name="genre">
+            <option value="" th:selected="${searchItem == null or searchItem == ''}">전체</option>
+            <option value="드라마" th:selected="${searchItem == '드라마'}">드라마</option>
+            <option value="액션" th:selected="${searchItem == '액션'}">액션</option>
+            <option value="애니메이션" th:selected="${searchItem == '애니메이션'}">애니메이션</option>
+            <option value="코미디" th:selected="${searchItem == '코미디'}">코미디</option>
+        </select>
+        <input type="submit" value="골라보기">
+    </form>
+    </p>
+</body>
+
+</html>

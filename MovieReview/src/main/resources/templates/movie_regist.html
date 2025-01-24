@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영화 정보 등록</title>
+
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script>
+
+        let movieCheck = false;
+
+        $(function () {
+            $('#movieRegistBtn').on('click', regist);
+        });
+
+        function regist() {
+            let movieName = $('#movieName').val();
+            let genre = $('#genre').val();
+            let movieSummary = $('#movieSummary').val();
+
+            if (movieName === "" || movieSummary === "") {
+                alert("제목 또는 내용을 입력해 주세요");
+                return;
+            }
+
+            $.ajax({
+                url: '/movieCheck',
+                method: 'POST',
+                data: { "movieName": movieName },
+                success: function (resp) {
+                    if (resp) {
+                        movieCheck = true;
+                        let sendData = { "movieName": movieName, "genre": genre, "movieSummary": movieSummary };
+                        let url = $('#movieRegist').attr('action');
+
+                        $.ajax({
+                            url: url
+                            , method: 'POST'
+                            , data: sendData
+                            , success: function (movieCheck) {
+                                if (movieCheck) {
+                                    window.location.href = "/";
+                                }
+                            }
+                        });
+                    } else {
+                        alert("동일한 제목의 영화가 이미 등록되어 있습니다.");
+                        movieCheck = false;
+                    }
+                }
+            })
+        }
+
+    </script>
+</head>
+
+<body>
+    <h2>[영화 정보 등록]</h2>
+    <div>
+        <form th:action="@{/movieRegist}" method="POST" id="movieRegist">
+            <table border="1">
+                <tr>
+                    <td>
+                        <select name="genre" id="genre">
+                            <option value="드라마">드라마</option>
+                            <option value="액션">액션</option>
+                            <option value="애니메이션">애니메이션</option>
+                            <option value="코미디">코미디</option>
+                        </select>
+                        <input type="text" id="movieName" name="movieName">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea name="movieSummary" id="movieSummary" cols="50" rows="10"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <input type="button" id="movieRegistBtn" value="등록하기">
+
+                    </th>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>
