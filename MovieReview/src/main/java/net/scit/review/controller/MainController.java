@@ -15,6 +15,8 @@ import net.scit.review.service.MovieService;
 public class MainController {
 	private final MovieService movieService;
 	
+	//메인 화면
+	//영화 정보 리스트를 보여준다
 	@GetMapping({"/", ""})
 	public String movieList(Model model) {
 		List<MovieDTO> list = movieService.selectAll();
